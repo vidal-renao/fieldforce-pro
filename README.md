@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FieldForce Pro
 
-## Getting Started
+Proyecto de gestión de servicios de campo de **VIDAL ECOSYSTEM**.
 
-First, run the development server:
+> **Estado: prototipo inicial.** El repositorio incluye actualmente una landing provisional en Next.js. No contiene todavía autenticación, modelo de datos, integración Supabase, dashboard operativo ni funcionalidades de gestión de órdenes de trabajo. Ninguna integración con Vercel o Supabase queda demostrada por este repositorio.
+
+## Stack verificado
+
+- Next.js 16.4.3 (App Router)
+- React 19.3.0
+- TypeScript (strict)
+- Tailwind CSS 4
+
+## Desarrollo
+
+Requisitos: Node.js 22 y npm.
 
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visita http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Comprobaciones
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run build
+```
 
-## Learn More
+Las mismas comprobaciones se ejecutan en GitHub Actions para pushes a `main` y pull requests a `main`. La compilación debe ejecutarse en un entorno con acceso a dependencias y recursos de fuentes cuando proceda.
 
-To learn more about Next.js, take a look at the following resources:
+## Próximas fases (propuestas, no implementadas)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Definir requisitos EARS y aprobar el alcance funcional.
+2. Diseñar entidades, aislamiento multi-tenant y políticas Supabase RLS.
+3. Implementar autenticación, autorización y validación Zod.
+4. Crear flujos de clientes, técnicos, órdenes de trabajo y agenda.
+5. Añadir pruebas automáticas (unitarias, integración y E2E), observabilidad y criterios de despliegue.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+No almacenar secretos en Git ni considerar funcionalidades de producción listas sin pruebas y revisión de seguridad.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+© VIDAL ECOSYSTEM.
