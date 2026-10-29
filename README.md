@@ -42,3 +42,13 @@ Las mismas comprobaciones se ejecutan en GitHub Actions para pushes a `main` y p
 No almacenar secretos en Git ni considerar funcionalidades de producción listas sin pruebas y revisión de seguridad.
 
 © VIDAL ECOSYSTEM.
+
+## T01 foundation (in progress)
+
+This task adds DE/EN/ES message catalogs, locale-validation tests, ADR and environment template. The full `next-intl` integration and locale routing remain pending until reproducible npm dependency/lockfile updates are validated. No functional SaaS modules are included.
+
+Run foundation tests: `npm test`; typecheck: `npm run typecheck`.
+
+Project records: `docs/adr/ADR-0001-modular-monolith.md`, `docs/MEMORY.md`, `docs/CHANGELOG.md`.
+
+© VIDAL ECOSYSTEM
