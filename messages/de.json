@@ -1,6 +1,16 @@
 {
-  "title": "FieldForce Pro",
-  "tagline": "Plattform für Außendienstmanagement in Entwicklung.",
-  "statusTitle": "Projektstatus",
-  "statusDescription": "Dies ist eine vorläufige Seite. Anmeldung, Dashboard und Integrationen stehen noch nicht zur Verfügung."
+  "eyebrow": "Digitale Prozesse. Klare Einsätze.",
+  "title": "Außendienst. Einfach organisiert.",
+  "tagline": "Eine moderne Plattform für die Planung, Koordination und Dokumentation von Außendiensteinsätzen. Entwickelt für Teams, die den Überblick behalten wollen.",
+  "statusTitle": "Aktuell in Entwicklung",
+  "statusDescription": "Dies ist eine Produktvorschau. Anmeldung, Auftragsverwaltung und Integrationen werden schrittweise entwickelt und sind derzeit nicht verfügbar.",
+  "featureOneTitle": "Aufträge im Blick",
+  "featureOneDescription": "Geplante Übersicht für Einsatzaufträge und ihren Bearbeitungsstand.",
+  "featureTwoTitle": "Teams koordinieren",
+  "featureTwoDescription": "Geplante Zuweisung von Einsätzen und klare Zuständigkeiten.",
+  "featureThreeTitle": "Abläufe dokumentieren",
+  "featureThreeDescription": "Geplante Nachverfolgung von Arbeitsschritten und Statusänderungen.",
+  "previewLabel": "Geplante Funktionen",
+  "footerNote": "Produktvorschau · Noch nicht für den Betrieb freigegeben",
+  "languageLabel": "Sprache auswählen"
 }
