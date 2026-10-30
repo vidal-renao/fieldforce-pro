@@ -12,5 +12,18 @@
   "featureThreeDescription": "Planned traceability for service activity and status updates.",
   "previewLabel": "Planned capabilities",
   "footerNote": "Product preview · Not ready for operational use",
-  "languageLabel": "Select language"
+  "languageLabel": "Select language",
+  "auth": {
+    "loginTitle": "Secure sign-in",
+    "loginDescription": "Sign in with an authorized account.",
+    "loginError": "Sign-in failed. Check your credentials.",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign in",
+    "back": "Back to homepage",
+    "dashboardTitle": "Private area",
+    "signedInAs": "Signed in as:",
+    "noWorkspace": "Company access requires approved organization membership.",
+    "signOut": "Sign out"
+  }
 }
