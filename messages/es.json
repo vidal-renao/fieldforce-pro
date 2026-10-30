@@ -85,6 +85,8 @@
     "navigation": "Navegación principal",
     "team": "Empresa y equipo",
     "account": "Cuenta",
-    "languageNavigation": "Seleccionar idioma"
+    "languageNavigation": "Seleccionar idioma",
+    "restricted": "Acceso restringido",
+    "confirmCompletion": "¿Confirmas que deseas marcar este trabajo como completado?"
   }
 }
