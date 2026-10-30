@@ -104,6 +104,12 @@
     "lastUpdated": "Last updated",
     "customerOrders": "Customer work orders",
     "noCustomerOrders": "This customer has no work orders yet.",
-    "customerSaved": "Customer updated successfully."
+    "customerSaved": "Customer updated successfully.",
+    "searchCustomers": "Search customers",
+    "search": "Search",
+    "noCustomerResults": "No matching customers.",
+    "customerPagination": "Customer pages",
+    "previous": "Previous",
+    "next": "Next"
   }
 }
