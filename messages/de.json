@@ -87,6 +87,17 @@
     "account": "Konto",
     "languageNavigation": "Sprache wählen",
     "restricted": "Kein Zugriff",
-    "confirmCompletion": "Möchtest du diesen Auftrag wirklich als abgeschlossen markieren?"
+    "confirmCompletion": "Möchtest du diesen Auftrag wirklich als abgeschlossen markieren?",
+    "orderCreated": "Erstellt",
+    "orderScheduled": "Geplant",
+    "unscheduled": "Nicht geplant",
+    "eventHistory": "Aktivitätsverlauf",
+    "noEvents": "Keine Ereignisse erfasst",
+    "reopenTitle": "Abgeschlossenen Auftrag wieder öffnen",
+    "reopenHelp": "Bitte einen Grund angeben. Die Wiedereröffnung wird protokolliert.",
+    "reopenReason": "Grund für die Wiedereröffnung",
+    "reopenAction": "Auftrag wieder öffnen",
+    "reopenSuccess": "Auftrag wieder geöffnet und protokolliert.",
+    "orderActionError": "Vorgang fehlgeschlagen. Angaben und Berechtigungen prüfen."
   }
 }
