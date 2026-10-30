@@ -104,6 +104,12 @@
     "lastUpdated": "Última actualización",
     "customerOrders": "Órdenes del cliente",
     "noCustomerOrders": "Este cliente todavía no tiene órdenes.",
-    "customerSaved": "Cliente actualizado correctamente."
+    "customerSaved": "Cliente actualizado correctamente.",
+    "searchCustomers": "Buscar clientes",
+    "search": "Buscar",
+    "noCustomerResults": "No hay clientes que coincidan.",
+    "customerPagination": "Páginas de clientes",
+    "previous": "Anterior",
+    "next": "Siguiente"
   }
 }
