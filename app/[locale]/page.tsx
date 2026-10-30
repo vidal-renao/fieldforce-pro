@@ -62,7 +62,7 @@ export default async function LocalizedHome({params}: {params: Promise<{locale: 
           </div>
         </section>
         <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 py-6 text-xs text-slate-400">
-          <p>© {new Date().getFullYear()} VIDAL ECOSYSTEM</p>
+          <p>© VIDAL ECOSYSTEM</p>
           <p>{t('footerNote')}</p>
         </footer>
       </div>
