@@ -23,3 +23,11 @@ Estados y prioridades restringidos por CHECK; restricciones de cierre; claves fo
 
 ## Infraestructura compartida
 Proyecto Supabase existente: upuhppsbolpdpaighzfq; alias SQL: `fieldforce`. No se añaden esquemas expuestos a Data API ni se conceden permisos a `anon`/`authenticated`. No implica aprovisionar un proyecto de pago. El aislamiento de recursos de cómputo no es independiente: compartir proyecto conserva dependencia operativa.
+
+## Validación de despliegue (2026-10-30)
+- Migración `fieldforce_t02_foundation_schema` aplicada con éxito al proyecto compartido `upuhppsbolpdpaighzfq`.
+- PostgreSQL confirma 6 tablas y RLS activo en todas.
+- Validado: no hay GRANT de tablas a `anon`/`authenticated`; `USAGE` de esquema denegado a ambas funciones.
+- Foreign keys e índices creados sin fallo SQL.
+- Security Advisor muestra `rls_enabled_no_policy` (informativo e intencional hasta T03). Los demás avisos existentes del proyecto compartido están fuera del alcance de T02.
+- No se ha creado un nuevo proyecto ni se ha solicitado cambio de plan; compartir recursos no garantiza ausencia de cargos variables por mayor consumo.
