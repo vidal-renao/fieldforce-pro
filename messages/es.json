@@ -1,6 +1,16 @@
 {
-  "title": "FieldForce Pro",
-  "tagline": "Plataforma de gestión de servicios de campo en desarrollo.",
-  "statusTitle": "Estado del proyecto",
-  "statusDescription": "Esta es una página provisional. La autenticación, el panel operativo y las integraciones aún no están disponibles."
+  "eyebrow": "Operaciones conectadas. Trabajo claro.",
+  "title": "Servicios de campo, bajo control.",
+  "tagline": "Una plataforma moderna para planificar, coordinar y documentar trabajos sobre el terreno. Diseñada para equipos que necesitan visibilidad de principio a fin.",
+  "statusTitle": "Actualmente en desarrollo",
+  "statusDescription": "Esta es una vista previa del producto. El inicio de sesión, las órdenes de trabajo y las integraciones se desarrollan por fases y todavía no están disponibles.",
+  "featureOneTitle": "Control de órdenes",
+  "featureOneDescription": "Visibilidad prevista sobre trabajos asignados y su progreso.",
+  "featureTwoTitle": "Coordinación de equipos",
+  "featureTwoDescription": "Asignación de técnicos y responsabilidades claramente definidas.",
+  "featureThreeTitle": "Trazabilidad de servicios",
+  "featureThreeDescription": "Registro previsto de actividades, cambios de estado y seguimiento.",
+  "previewLabel": "Funcionalidades previstas",
+  "footerNote": "Vista previa del producto · Aún no apto para uso operativo",
+  "languageLabel": "Seleccionar idioma"
 }
