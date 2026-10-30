@@ -86,6 +86,7 @@
     "team": "Empresa y equipo",
     "account": "Cuenta",
     "languageNavigation": "Seleccionar idioma",
-    "restricted": "Acceso restringido"
+    "restricted": "Acceso restringido",
+    "confirmCompletion": "¿Confirmas que deseas marcar este trabajo como completado?"
   }
 }
