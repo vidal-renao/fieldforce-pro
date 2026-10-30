@@ -1,6 +1,7 @@
 export const instant = false;
 
 import {redirect} from 'next/navigation';
+import {routing} from '@/src/i18n/routing';
 import {getTranslations,setRequestLocale} from 'next-intl/server';
 import {createSupabaseServerClient} from '@/src/lib/supabase/server';
 import {signOut} from '../login/actions';
@@ -38,7 +39,18 @@ export default async function DashboardPage({params,searchParams}:{
  return (
   <main className="mx-auto w-full max-w-4xl px-6 py-16 text-slate-100">
    <p className="text-xs font-bold uppercase tracking-widest text-cyan-300">FieldForce Pro</p>
-   <h1 className="mt-4 text-3xl font-bold">{t('dashboardTitle')}</h1>
+   <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
+    <h1 className="text-3xl font-bold">{t('dashboardTitle')}</h1>
+    <nav aria-label={tm('languageNavigation')} className="flex items-center gap-2 rounded-xl border border-slate-600 bg-slate-900 p-2">
+      {routing.locales.map((code)=>(
+        <a key={code} href={`/${code}/dashboard${activeOrg?`?org=${encodeURIComponent(activeOrg)}`:''}`}
+          hrefLang={code} lang={code} aria-current={locale===code?'page':undefined}
+          className={`rounded-lg px-3 py-2 text-sm font-bold focus-visible:outline-2 focus-visible:outline-cyan-300 ${locale===code?'bg-cyan-300 text-slate-950':'text-slate-200 hover:bg-slate-700'}`}>
+          {code.toUpperCase()}
+        </a>
+      ))}
+    </nav>
+   </div>
    <p className="mt-4 text-slate-300">{t('signedInAs')} <span className="font-semibold text-white">{user.email}</span></p>
    {activeOrg ? <nav aria-label={tm("navigation")} className="sticky top-2 z-20 mt-6 flex flex-wrap gap-2 rounded-xl border border-slate-600 bg-slate-950/95 p-3 shadow-lg backdrop-blur">
      <a href="#workspace" className="rounded-lg border border-slate-600 px-3 py-2 text-sm hover:bg-slate-800">{tm("workspace")}</a>
