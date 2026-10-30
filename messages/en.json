@@ -1,6 +1,16 @@
 {
-  "title": "FieldForce Pro",
-  "tagline": "Field service management platform in development.",
-  "statusTitle": "Project status",
-  "statusDescription": "This is a placeholder page. Authentication, dashboard and integrations are not yet available."
+  "eyebrow": "Smarter operations. Clearer workflows.",
+  "title": "Field service. In sync.",
+  "tagline": "A modern platform for planning, coordinating and documenting field operations. Built for teams that need clarity from start to finish.",
+  "statusTitle": "Currently in development",
+  "statusDescription": "This is a product preview. Sign-in, work order management and integrations are being built in stages and are not yet available.",
+  "featureOneTitle": "Track work orders",
+  "featureOneDescription": "Planned visibility into assignments and job progress.",
+  "featureTwoTitle": "Coordinate teams",
+  "featureTwoDescription": "Planned technician assignments and clear ownership.",
+  "featureThreeTitle": "Document every step",
+  "featureThreeDescription": "Planned traceability for service activity and status updates.",
+  "previewLabel": "Planned capabilities",
+  "footerNote": "Product preview · Not ready for operational use",
+  "languageLabel": "Select language"
 }
