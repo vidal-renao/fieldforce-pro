@@ -89,6 +89,8 @@ begin
  return true;
 end $$;
 
+alter table fieldforce.work_order_events add column if not exists reason text;
+
 -- Reopen is never implicit in the generic status function.
 create or replace function fieldforce_private.reopen_order(p_org uuid,p_order uuid,p_reason text)
 returns boolean language plpgsql security definer set search_path=''
@@ -105,7 +107,8 @@ begin
  update fieldforce.work_orders set status='open',closed_at=null,updated_at=now()
  where id=p_order and organization_id=p_org;
  -- The existing status-change trigger logs the transition with actor.
- -- The reason is not stored until an approved event schema adds a reason field.
+ insert into fieldforce.work_order_events(organization_id,work_order_id,actor_id,event_type,reason,old_status,new_status)
+ values(p_org,p_order,(select auth.uid()),'updated',pg_catalog.btrim(p_reason),'completed','open');
  return true;
 end $$;
 revoke all on function fieldforce_private.reopen_order(uuid,uuid,text) from public,anon;
