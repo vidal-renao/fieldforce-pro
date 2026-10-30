@@ -12,5 +12,18 @@
   "featureThreeDescription": "Registro previsto de actividades, cambios de estado y seguimiento.",
   "previewLabel": "Funcionalidades previstas",
   "footerNote": "Vista previa del producto · Aún no apto para uso operativo",
-  "languageLabel": "Seleccionar idioma"
+  "languageLabel": "Seleccionar idioma",
+  "auth": {
+    "loginTitle": "Acceso seguro",
+    "loginDescription": "Inicia sesión con una cuenta autorizada. El acceso a empresas y operaciones se habilitará por roles.",
+    "loginError": "No se ha podido iniciar sesión. Comprueba tus credenciales e inténtalo de nuevo.",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "signIn": "Iniciar sesión",
+    "back": "Volver a la portada",
+    "dashboardTitle": "Área privada",
+    "signedInAs": "Sesión iniciada como:",
+    "noWorkspace": "La autenticación funciona. El acceso a una empresa y sus operaciones requiere completar la vinculación segura del usuario a su organización.",
+    "signOut": "Cerrar sesión"
+  }
 }
