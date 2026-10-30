@@ -12,5 +12,27 @@
   "featureThreeDescription": "Planned traceability for service activity and status updates.",
   "previewLabel": "Planned capabilities",
   "footerNote": "Product preview · Not ready for operational use",
-  "languageLabel": "Select language"
+  "languageLabel": "Select language",
+  "auth": {
+    "loginTitle": "Secure sign-in",
+    "loginDescription": "Sign in with an authorized account.",
+    "loginError": "Sign-in failed. Check your credentials.",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign in",
+    "back": "Back to homepage",
+    "dashboardTitle": "Private area",
+    "signedInAs": "Signed in as:",
+    "noWorkspace": "Company access requires approved organization membership.",
+    "signOut": "Sign out",
+    "organizationCreated": "Company created successfully.",
+    "organizationError": "Could not create the company.",
+    "connectionError": "Could not load your companies.",
+    "organizationsTitle": "My companies",
+    "operationsComingSoon": "Operational features will be available in the next phase.",
+    "createOrganizationTitle": "Set up your first company",
+    "createOrganizationDescription": "You will become the owner of an isolated workspace.",
+    "organizationName": "Company name",
+    "createOrganization": "Create company"
+  }
 }
