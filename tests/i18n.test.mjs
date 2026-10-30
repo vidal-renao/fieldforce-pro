@@ -27,7 +27,7 @@ test("translated messages have matching keys and non-empty text", () => {
   const flat = messages.map((message) => flatten(message));
   const keys = Object.keys(flat[0]).sort();
   assert.ok(keys.length > 0);
-  for (const message of messages) {
+  for (const message of flat) {
     assert.deepEqual(Object.keys(message).sort(), keys);
     assert.ok(Object.values(message).every((v) => typeof v === "string" && v.trim().length > 0));
   }
