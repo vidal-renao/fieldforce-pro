@@ -33,6 +33,17 @@
     "createOrganizationTitle": "Configura tu primera empresa",
     "createOrganizationDescription": "Crearás un espacio aislado y serás su propietario. Por seguridad, solo se permite crear uno inicialmente.",
     "organizationName": "Nombre de la empresa",
-    "createOrganization": "Crear empresa"
+    "createOrganization": "Crear empresa",
+    "inviteEmail": "Correo del invitado",
+    "inviteRole": "Rol",
+    "technician": "Técnico",
+    "admin": "Administrador",
+    "issueInvite": "Generar invitación",
+    "inviteError": "La invitación no se ha podido completar.",
+    "inviteInstructions": "Código de un solo uso, válido 7 días. Compártelo únicamente con la persona destinataria mediante un canal privado. No se envía ningún correo automáticamente.",
+    "acceptInviteTitle": "Aceptar invitación",
+    "acceptInviteDescription": "Inicia sesión con tu correo verificado y pega el código recibido de tu administrador.",
+    "inviteToken": "Código de invitación",
+    "acceptInvite": "Unirme a la empresa"
   }
 }

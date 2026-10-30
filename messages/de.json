@@ -33,6 +33,17 @@
     "createOrganizationTitle": "Erstes Unternehmen einrichten",
     "createOrganizationDescription": "Du wirst Eigentümer eines isolierten Arbeitsbereichs.",
     "organizationName": "Unternehmensname",
-    "createOrganization": "Unternehmen erstellen"
+    "createOrganization": "Unternehmen erstellen",
+    "inviteEmail": "E-Mail der eingeladenen Person",
+    "inviteRole": "Rolle",
+    "technician": "Techniker",
+    "admin": "Administrator",
+    "issueInvite": "Einladung erstellen",
+    "inviteError": "Einladung konnte nicht verarbeitet werden.",
+    "inviteInstructions": "Einmaliger Code, 7 Tage gültig. Nur privat mit dem Empfänger teilen; keine E-Mail wird automatisch versandt.",
+    "acceptInviteTitle": "Einladung annehmen",
+    "acceptInviteDescription": "Mit bestätigter E-Mail anmelden und den erhaltenen Code eingeben.",
+    "inviteToken": "Einladungscode",
+    "acceptInvite": "Unternehmen beitreten"
   }
 }

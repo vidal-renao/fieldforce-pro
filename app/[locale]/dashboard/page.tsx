@@ -5,6 +5,7 @@ import {getTranslations,setRequestLocale} from 'next-intl/server';
 import {createSupabaseServerClient} from '@/src/lib/supabase/server';
 import {signOut} from '../login/actions';
 import {createOrganization} from './actions';
+import {InviteForm} from './invitations/invite-form';
 
 export default async function DashboardPage({params,searchParams}:{
  params:Promise<{locale:string}>;
@@ -34,6 +35,7 @@ export default async function DashboardPage({params,searchParams}:{
        <article key={org.organization_id} className="rounded-xl border border-white/10 bg-white/5 p-5">
          <h3 className="font-bold">{org.organization_name}</h3>
          <p className="mt-1 text-sm text-cyan-300">{org.member_role}</p>
+         {["owner","admin"].includes(org.member_role)?<InviteForm orgId={org.organization_id} labels={{inviteEmail:t("inviteEmail"),inviteRole:t("inviteRole"),technician:t("technician"),admin:t("admin"),issueInvite:t("issueInvite"),inviteError:t("inviteError"),inviteInstructions:t("inviteInstructions")}}/>:null}
        </article>
      ))}
      <p className="text-sm text-slate-400">{t('operationsComingSoon')}</p>
@@ -47,6 +49,7 @@ export default async function DashboardPage({params,searchParams}:{
        <button type="submit" className="rounded-lg bg-cyan-300 px-5 py-3 font-bold text-slate-950 hover:bg-cyan-200">{t('createOrganization')}</button>
       </form>
    </section> : null}
+   <a href={`/${locale}/invitation`} className="mt-8 inline-block text-cyan-300 underline">{t("acceptInviteTitle")}</a>
    <form action={signOut.bind(null,locale)} className="mt-8">
      <button type="submit" className="rounded-lg border border-slate-500 px-5 py-3 font-semibold hover:bg-white/10">{t('signOut')}</button>
    </form>
