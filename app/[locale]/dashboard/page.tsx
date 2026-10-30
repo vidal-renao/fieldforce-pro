@@ -1,3 +1,5 @@
+export const instant = false;
+
 import {redirect} from 'next/navigation';
 import {getTranslations,setRequestLocale} from 'next-intl/server';
 import {createSupabaseServerClient} from '@/src/lib/supabase/server';
