@@ -20,3 +20,6 @@ Estados y prioridades restringidos por CHECK; restricciones de cierre; claves fo
 - Antes de aplicación: probar con PostgreSQL 17, verificar el plan de migración y advisors de Supabase.
 
 © VIDAL ECOSYSTEM
+
+## Infraestructura compartida
+Proyecto Supabase existente: upuhppsbolpdpaighzfq; alias SQL: `fieldforce`. No se añaden esquemas expuestos a Data API ni se conceden permisos a `anon`/`authenticated`. No implica aprovisionar un proyecto de pago. El aislamiento de recursos de cómputo no es independiente: compartir proyecto conserva dependencia operativa.
