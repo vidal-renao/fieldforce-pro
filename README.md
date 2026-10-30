@@ -1,54 +1,38 @@
 # FieldForce Pro
 
-Proyecto de gestión de servicios de campo de **VIDAL ECOSYSTEM**.
+SaaS de gestión de servicios de campo de VIDAL ECOSYSTEM.
 
-> **Estado: prototipo inicial.** El repositorio incluye actualmente una landing provisional en Next.js. No contiene todavía autenticación, modelo de datos, integración Supabase, dashboard operativo ni funcionalidades de gestión de órdenes de trabajo. Ninguna integración con Vercel o Supabase queda demostrada por este repositorio.
+> Estado: foundation T01. Esta versión incluye una landing localizada, no funciones de negocio. Supabase, autenticación, órdenes de trabajo y dashboard están pendientes de otras tareas aprobadas.
 
-## Stack verificado
+## Stack
+Next.js 16.4.3, React 19.3.0, next-intl 4.14.9, TypeScript strict, Tailwind CSS 4.
 
-- Next.js 16.4.3 (App Router)
-- React 19.3.0
-- TypeScript (strict)
-- Tailwind CSS 4
-
-## Desarrollo
-
-Requisitos: Node.js 22 y npm.
+## Entorno local
+Requiere Node.js 22 y npm.
 
 ```bash
 npm ci
 npm run dev
 ```
 
-Visita http://localhost:3000.
+Rutas: `/de` (predeterminada), `/en`, `/es`. La raíz `/` redirige a `/de`.
 
-## Comprobaciones
-
+## Calidad
 ```bash
+npm test
 npm run lint
+npm run typecheck
 npm run build
 ```
 
-Las mismas comprobaciones se ejecutan en GitHub Actions para pushes a `main` y pull requests a `main`. La compilación debe ejecutarse en un entorno con acceso a dependencias y recursos de fuentes cuando proceda.
+GitHub Actions comprueba además las rutas localizadas a través de HTTP, así como la redirección raíz.
 
-## Próximas fases (propuestas, no implementadas)
+## Ingeniería
+- `docs/adr/ADR-0001-modular-monolith.md`
+- `docs/MEMORY.md`
+- `docs/CHANGELOG.md`
+- `tests/i18n.test.mjs`
 
-1. Definir requisitos EARS y aprobar el alcance funcional.
-2. Diseñar entidades, aislamiento multi-tenant y políticas Supabase RLS.
-3. Implementar autenticación, autorización y validación Zod.
-4. Crear flujos de clientes, técnicos, órdenes de trabajo y agenda.
-5. Añadir pruebas automáticas (unitarias, integración y E2E), observabilidad y criterios de despliegue.
-
-No almacenar secretos en Git ni considerar funcionalidades de producción listas sin pruebas y revisión de seguridad.
-
-© VIDAL ECOSYSTEM.
-
-## T01 foundation (in progress)
-
-This task adds DE/EN/ES message catalogs, locale-validation tests, ADR and environment template. The full `next-intl` integration and locale routing remain pending until reproducible npm dependency/lockfile updates are validated. No functional SaaS modules are included.
-
-Run foundation tests: `npm test`; typecheck: `npm run typecheck`.
-
-Project records: `docs/adr/ADR-0001-modular-monolith.md`, `docs/MEMORY.md`, `docs/CHANGELOG.md`.
+No añadir credenciales a Git. T02 (modelo de datos) no debe iniciarse sin autorización expresa.
 
 © VIDAL ECOSYSTEM
