@@ -81,6 +81,9 @@
     "assigned": "Asignada",
     "in_progress": "En curso",
     "cancelled": "Cancelada",
-    "statusChanged": "Estado actualizado"
+    "statusChanged": "Estado actualizado",
+    "navigation": "Navegación principal",
+    "team": "Empresa y equipo",
+    "account": "Cuenta"
   }
 }

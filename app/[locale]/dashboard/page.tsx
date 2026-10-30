@@ -40,10 +40,18 @@ export default async function DashboardPage({params,searchParams}:{
    <p className="text-xs font-bold uppercase tracking-widest text-cyan-300">FieldForce Pro</p>
    <h1 className="mt-4 text-3xl font-bold">{t('dashboardTitle')}</h1>
    <p className="mt-4 text-slate-300">{t('signedInAs')} <span className="font-semibold text-white">{user.email}</span></p>
+   {activeOrg ? <nav aria-label={tm("navigation")} className="sticky top-2 z-20 mt-6 flex flex-wrap gap-2 rounded-xl border border-slate-600 bg-slate-950/95 p-3 shadow-lg backdrop-blur">
+     <a href="#workspace" className="rounded-lg border border-slate-600 px-3 py-2 text-sm hover:bg-slate-800">{tm("workspace")}</a>
+     {canManage ? <a href="#customers" className="rounded-lg border border-slate-600 px-3 py-2 text-sm hover:bg-slate-800">{tm("customers")}</a> : null}
+     {canManage ? <a href="#orders" className="rounded-lg border border-slate-600 px-3 py-2 text-sm hover:bg-slate-800">{tm("orders")}</a> : null}
+     {active.member_role === 'technician' ? <a href="#my-jobs" className="rounded-lg border border-slate-600 px-3 py-2 text-sm hover:bg-slate-800">{tm("myJobs")}</a> : null}
+     {canManage ? <a href="#team" className="rounded-lg border border-slate-600 px-3 py-2 text-sm hover:bg-slate-800">{tm("team")}</a> : null}
+     <a href="#account" className="rounded-lg border border-slate-600 px-3 py-2 text-sm hover:bg-slate-800">{tm("account")}</a>
+   </nav> : null}
    {created && companies.length > 0 ? <p role="status" className="mt-6 rounded-lg bg-emerald-500/15 p-4 text-emerald-200">{t('organizationCreated')}</p> : null}
    {error && companies.length === 0 ? <p role="alert" className="mt-6 rounded-lg bg-rose-500/15 p-4 text-rose-200">{t('organizationError')}</p> : null}
    {listError ? <p role="alert" className="mt-6 rounded-lg bg-amber-500/15 p-4 text-amber-200">{t('connectionError')}</p> : null}
-   {companies.length ? <section className="mt-8 space-y-3">
+   {companies.length ? <section id="team" className="mt-8 scroll-mt-28 space-y-3">
      <h2 className="text-xl font-bold">{t('organizationsTitle')}</h2>
      {companies.map((org:{organization_id:string;organization_name:string;member_role:string})=>(
        <article key={org.organization_id} className="rounded-xl border border-white/10 bg-white/5 p-5">
@@ -64,14 +72,14 @@ export default async function DashboardPage({params,searchParams}:{
       </form>
    </section> : null}
    <a href={`/${locale}/invitation`} className="mt-8 inline-block text-cyan-300 underline">{t("acceptInviteTitle")}</a>
-   {activeOrg?<section className="mt-10 space-y-8">
+   {activeOrg?<section id="workspace" className="mt-10 scroll-mt-28 space-y-8">
     <div className="rounded-xl border border-cyan-500/30 bg-slate-900 p-6">
      <h2 className="text-xl font-bold">{tm("workspace")}: {active.organization_name}</h2>
      <p className="mt-2 text-sm text-slate-300">{tm("activeCompany")} · {active.member_role}</p>
      {companies.length>1?<nav aria-label={tm("chooseCompany")} className="mt-4 flex flex-wrap gap-3">{companies.map((o:{organization_id:string;organization_name:string})=><a className="rounded border border-slate-500 px-3 py-2 text-sm" key={o.organization_id} href={`/${locale}/dashboard?org=${o.organization_id}`}>{o.organization_name}</a>)}</nav>:null}
     </div>
     {notice?<p role="status" className="rounded border border-slate-600 p-3 text-sm">Resultado: {notice==='error'?'Operación rechazada o sin permisos.':notice==='invalid'?'Revisa los campos del formulario.':'Operación completada.'}</p>:null}
-    {active?.member_role==='technician'?<section className="rounded-xl border border-slate-700 p-5">
+    {active?.member_role==='technician'?<section id="my-jobs" className="scroll-mt-28 rounded-xl border border-slate-700 p-5">
      <h3 className="text-xl font-bold">{tm("myJobs")} ({assignedOrders.length})</h3>
      {assignedOrders.length===0?<p className="mt-3 text-sm text-slate-400">{tm("noJobs")}</p>:null}
      <ul className="mt-4 space-y-3">{assignedOrders.map((w:{id:string;title:string;status:string;priority:string;customer_name:string})=><li key={w.id} className="rounded bg-slate-900 p-4">
@@ -84,7 +92,7 @@ export default async function DashboardPage({params,searchParams}:{
      </li>)}</ul>
     </section>:null}
     <div className="grid gap-6 md:grid-cols-2">
-     <section className="rounded-xl border border-slate-700 p-5">
+     <section id="customers" className="scroll-mt-28 rounded-xl border border-slate-700 p-5">
       <h3 className="text-lg font-bold">{tm("customers")} ({customerList.length})</h3>
       <ul className="mt-4 space-y-2">{customerList.map((x:{id:string;name:string;email:string|null})=><li key={x.id} className="rounded bg-slate-900 p-3 text-sm">{x.name}{x.email?<span className="block text-slate-400">{x.email}</span>:null}</li>)}</ul>
       {canManage?<form action={addCustomer.bind(null,locale)} className="mt-5 space-y-3">
@@ -95,7 +103,7 @@ export default async function DashboardPage({params,searchParams}:{
        <button type="submit" className="rounded bg-cyan-300 px-4 py-2 font-semibold text-slate-950">{tm("saveCustomer")}</button>
       </form>:null}
      </section>
-     <section className="rounded-xl border border-slate-700 p-5">
+     <section id="orders" className="scroll-mt-28 rounded-xl border border-slate-700 p-5">
       <h3 className="text-lg font-bold">{tm("orders")} ({orderList.length})</h3>
       <ul className="mt-4 space-y-3">{orderList.map((w:{id:string;title:string;status:string;priority:string;customer_name:string})=><li key={w.id} className="rounded bg-slate-900 p-3 text-sm">
        <strong>{w.title}</strong><span className="block text-slate-300">{w.customer_name} · {w.priority} · {w.status}</span>
@@ -121,7 +129,7 @@ export default async function DashboardPage({params,searchParams}:{
      </section>
     </div>
    </section>:null}
-   <form action={signOut.bind(null,locale)} className="mt-8">
+   <form id="account" action={signOut.bind(null,locale)} className="mt-8 scroll-mt-28">
      <button type="submit" className="rounded-lg border border-slate-500 px-5 py-3 font-semibold hover:bg-white/10">{t('signOut')}</button>
    </form>
   </main>

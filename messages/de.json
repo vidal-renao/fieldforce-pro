@@ -81,6 +81,9 @@
     "assigned": "Zugewiesen",
     "in_progress": "In Bearbeitung",
     "cancelled": "Storniert",
-    "statusChanged": "Status aktualisiert"
+    "statusChanged": "Status aktualisiert",
+    "navigation": "Hauptnavigation",
+    "team": "Unternehmen und Team",
+    "account": "Konto"
   }
 }

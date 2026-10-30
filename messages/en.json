@@ -81,6 +81,9 @@
     "assigned": "Assigned",
     "in_progress": "In progress",
     "cancelled": "Cancelled",
-    "statusChanged": "Status updated"
+    "statusChanged": "Status updated",
+    "navigation": "Main navigation",
+    "team": "Company and team",
+    "account": "Account"
   }
 }
