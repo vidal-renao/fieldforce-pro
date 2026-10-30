@@ -23,10 +23,12 @@ function statusClass(value:string){return value==='completed'?'bg-emerald-400/10
 
 export default async function DashboardPage({params,searchParams}:{
   params:Promise<{locale:string}>;
-  searchParams:Promise<{error?:string;created?:string;org?:string;notice?:string;view?:string}>;
+  searchParams:Promise<{error?:string;created?:string;org?:string;notice?:string;view?:string;q?:string;page?:string}>;
 }){
  const {locale}=await params;
- const {error,created,org,notice,view}=await searchParams;
+ const {error,created,org,notice,view,q,page}=await searchParams;
+ const customerQuery=(q??'').trim().slice(0,120);
+ const customerPage=Math.max(1,Math.min(100000,Number.isSafeInteger(Number(page))?Number(page):1));
  setRequestLocale(locale);
  const supabase=await createSupabaseServerClient();
  const {data:{user},error:authError}=await supabase.auth.getUser();
@@ -46,6 +48,10 @@ export default async function DashboardPage({params,searchParams}:{
   technician?supabase.rpc('fieldforce_my_work_orders',{p_org:activeOrg}):Promise.resolve({data:[]})
  ]):[{data:[]},{data:[]},{data:[]},{data:[]}];
  const customers=(Array.isArray(rawCustomers)?rawCustomers:[]) as Customer[];
+ const {data:customerResults,error:customerSearchError}=activeOrg&&canManage?await supabase.rpc('fieldforce_search_customers',{p_org:activeOrg,p_query:customerQuery,p_page:customerPage,p_size:20}):{data:[],error:null};
+ const visibleCustomers=(Array.isArray(customerResults)?customerResults:[]) as (Customer & {total_count:number})[];
+ const customerTotal=visibleCustomers[0]?.total_count??0;
+ const customerLink=(n:number)=>`/${locale}/dashboard?${new URLSearchParams({org:activeOrg??'',view:'customers',q:customerQuery,page:String(n)}).toString()}`;
  const orders=(Array.isArray(rawOrders)?rawOrders:[]) as Order[];
  const team=(Array.isArray(rawTeam)?rawTeam:[]) as Tech[];
  const assigned=(Array.isArray(rawAssigned)?rawAssigned:[]) as Order[];
@@ -100,7 +106,7 @@ export default async function DashboardPage({params,searchParams}:{
      </section>
     </div>:null}
     {activeOrg&&current==='customers'&&canManage?<section className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,1fr)_350px]">
-      <div className={panel}><h2 className="text-xl font-bold">{tm('customers')} <span className="text-slate-400">({customers.length})</span></h2><div className="mt-5 space-y-2">{customers.length===0?<p className="text-sm text-slate-400">—</p>:customers.map(c=><div key={c.id} className="rounded-xl border border-white/5 bg-[#0b1425] p-4"><a className="font-semibold hover:text-cyan-300 hover:underline" href={`/${locale}/dashboard/customers/${c.id}?org=${encodeURIComponent(activeOrg)}`}>{c.name}</a><p className="mt-1 text-sm text-slate-400">{c.email??''} {c.phone??''}</p></div>)}</div></div>
+      <div className={panel}><h2 className="text-xl font-bold">{tm('customers')} <span className="text-slate-400">({customerTotal})</span></h2><form className="mt-5 flex flex-wrap gap-2" action={`/${locale}/dashboard`} method="get"><input type="hidden" name="org" value={activeOrg}/><input type="hidden" name="view" value="customers"/><input aria-label={tm('searchCustomers')} name="q" defaultValue={customerQuery} maxLength={120} placeholder={tm('searchCustomers')} className={field+ ' mt-0 flex-1'}/><button className={subtle}>{tm('search')}</button></form>{customerSearchError?<p role="alert" className="mt-3 text-rose-300">{tm('operationError')}</p>:null}<div className="mt-5 space-y-2">{visibleCustomers.length===0?<p className="text-sm text-slate-400">{tm('noCustomerResults')}</p>:visibleCustomers.map(c=><div key={c.id} className="rounded-xl border border-white/5 bg-[#0b1425] p-4"><a className="font-semibold hover:text-cyan-300 hover:underline" href={`/${locale}/dashboard/customers/${c.id}?org=${encodeURIComponent(activeOrg)}`}>{c.name}</a><p className="mt-1 text-sm text-slate-400">{c.email??''} {c.phone??''}</p></div>)}</div><nav aria-label={tm('customerPagination')} className="mt-5 flex items-center justify-between gap-3 text-sm"><span>{customerPage} / {Math.max(1,Math.ceil(customerTotal/20))}</span><div className="flex gap-3">{customerPage>1?<a className={subtle} href={customerLink(customerPage-1)}>{tm('previous')}</a>:null}{customerPage*20<customerTotal?<a className={subtle} href={customerLink(customerPage+1)}>{tm('next')}</a>:null}</div></nav></div>
       <section className={panel}><h2 className="mb-5 text-lg font-bold">{tm('saveCustomer')}</h2><form action={addCustomer.bind(null,locale)} className="space-y-4"><input type="hidden" name="org" value={activeOrg}/><label className="block text-sm">{tm('customerName')}<input name="name" required maxLength={180} className={field}/></label><label className="block text-sm">{tm('emailOptional')}<input type="email" name="email" maxLength={254} className={field}/></label><label className="block text-sm">{tm('phoneOptional')}<input name="phone" maxLength={60} className={field}/></label><button className={action}>{tm('saveCustomer')}</button></form></section>
     </section>:null}
     {activeOrg&&current==='orders'&&canManage?<section className="mt-8 space-y-6">
