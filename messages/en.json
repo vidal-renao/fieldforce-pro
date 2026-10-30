@@ -33,6 +33,17 @@
     "createOrganizationTitle": "Set up your first company",
     "createOrganizationDescription": "You will become the owner of an isolated workspace.",
     "organizationName": "Company name",
-    "createOrganization": "Create company"
+    "createOrganization": "Create company",
+    "inviteEmail": "Invitee email",
+    "inviteRole": "Role",
+    "technician": "Technician",
+    "admin": "Administrator",
+    "issueInvite": "Generate invitation",
+    "inviteError": "Invitation could not be completed.",
+    "inviteInstructions": "Single-use code valid for 7 days. Share privately with the intended recipient; no email is sent automatically.",
+    "acceptInviteTitle": "Accept invitation",
+    "acceptInviteDescription": "Sign in with your verified email and paste the code supplied by your administrator.",
+    "inviteToken": "Invitation code",
+    "acceptInvite": "Join company"
   }
 }
