@@ -1,4 +1,16 @@
-import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 const page=readFileSync(new URL('../app/[locale]/dashboard/page.tsx',import.meta.url),'utf8');
-test('navigation anchors target existing sections',()=>{for(const id of ['workspace','customers','orders','my-jobs','team','account']){assert.ok(page.includes('href="#'+id+'"'));assert.ok(page.includes('id="'+id+'"'));}});
-test('navigation restricts controls by organization role',()=>{assert.match(page,/canManage \? <a href="#orders"/);assert.match(page,/active.member_role === 'technician' \? <a href="#my-jobs"/);assert.match(page,/aria-label=\{tm\("navigation"\)\}/);});
+test('role-based workspace navigation has real destination views',()=>{
+ for(const view of ['overview','customers','orders','team','my-jobs','account']) assert.ok(page.includes("'"+view+"'"),view);
+ assert.match(page,/const views=canManage\?/);
+ assert.match(page,/const current=views\.find/);
+ assert.match(page,/aria-current=\{current===v\?'page'/);
+ assert.match(page,/aria-label=\{tm\('navigation'\)\}/);
+});
+test('team and orders views require role authorization',()=>{
+ assert.match(page,/current==='team'&&canManage/);
+ assert.match(page,/current==='orders'&&canManage/);
+ assert.match(page,/current==='my-jobs'&&technician/);
+});
