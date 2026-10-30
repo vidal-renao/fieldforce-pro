@@ -1,18 +1,18 @@
-# ADR-0001 — Modular monolith as MVP foundation
+# ADR-0001 — Monolito modular para el MVP
 
-Status: Accepted in PLAN VE-FFP-PLAN-001 v1.0 (implementation limited to T01).
-Date: 2026-10-30
+Estado: aceptado por VE-FFP-PLAN-001 v1.0.
+Fecha: 2026-10-30.
 
-## Context
-FieldForce Pro is an early-stage Next.js application. Multi-tenancy, Auth and domain entities belong to later tasks.
+## Contexto
+FieldForce Pro parte de una aplicación Next.js inicial. El modelo de datos, las políticas RLS y la autenticación corresponden a tareas posteriores.
 
-## Decision
-Maintain a single Next.js application using TypeScript strict. Group code by responsibility as domains are introduced, with server-side validation and authorization. Adopt Supabase PostgreSQL and RLS only in the approved T02/T03 phases. Avoid service splitting or speculative modules.
+## Decisión
+Mantener un monolito modular Next.js 16 con TypeScript strict y next-intl DE/EN/ES, routing con prefijos y predeterminado DE. Introducir Supabase PostgreSQL y RLS solamente en T02/T03.
 
-## Security
-Use least privilege, no secrets in Git, validate untrusted inputs and test cross-tenant isolation before releasing functional features.
+## Seguridad y QA
+Mínimo privilegio, sin secretos en Git, tests primero, lint, typecheck, build y smoke HTTP en CI. No proclamar preparación productiva ni funcionalidades no implantadas.
 
-## Consequences
-Minimal operational overhead; boundaries must be preserved through module discipline and tests. Internationalization text scaffolding exists, but full next-intl routing is not yet installed in T01 pending reproducible dependency-lock update.
+## Consecuencias
+Menor carga operativa, despliegue sencillo, separación por dominios al crear funcionalidades.
 
 © VIDAL ECOSYSTEM
