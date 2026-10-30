@@ -26,8 +26,8 @@ export default async function DashboardPage({params,searchParams}:{
    <p className="text-xs font-bold uppercase tracking-widest text-cyan-300">FieldForce Pro</p>
    <h1 className="mt-4 text-3xl font-bold">{t('dashboardTitle')}</h1>
    <p className="mt-4 text-slate-300">{t('signedInAs')} <span className="font-semibold text-white">{user.email}</span></p>
-   {created ? <p role="status" className="mt-6 rounded-lg bg-emerald-500/15 p-4 text-emerald-200">{t('organizationCreated')}</p> : null}
-   {error ? <p role="alert" className="mt-6 rounded-lg bg-rose-500/15 p-4 text-rose-200">{t('organizationError')}</p> : null}
+   {created && companies.length > 0 ? <p role="status" className="mt-6 rounded-lg bg-emerald-500/15 p-4 text-emerald-200">{t('organizationCreated')}</p> : null}
+   {error && companies.length === 0 ? <p role="alert" className="mt-6 rounded-lg bg-rose-500/15 p-4 text-rose-200">{t('organizationError')}</p> : null}
    {listError ? <p role="alert" className="mt-6 rounded-lg bg-amber-500/15 p-4 text-amber-200">{t('connectionError')}</p> : null}
    {companies.length ? <section className="mt-8 space-y-3">
      <h2 className="text-xl font-bold">{t('organizationsTitle')}</h2>
