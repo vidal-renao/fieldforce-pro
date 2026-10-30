@@ -28,7 +28,7 @@ begin
  if p_phone is not null and pg_catalog.char_length(p_phone)>60 then
  raise exception 'invalid phone length' using errcode='22023';end if;
  insert into fieldforce.customers(organization_id,name,email,phone)
- values(p_org,pg_catalog.btrim(p_name),pg_catalog.nullif(pg_catalog.btrim(p_email),''),pg_catalog.nullif(pg_catalog.btrim(p_phone),''))
+ values(p_org,pg_catalog.btrim(p_name),nullif(pg_catalog.btrim(p_email),''),nullif(pg_catalog.btrim(p_phone),''))
  returning id into v_id;return v_id;
 end $$;
 create or replace function public.fieldforce_create_order(p_org uuid,p_customer uuid,p_title text,p_priority text default 'normal')
