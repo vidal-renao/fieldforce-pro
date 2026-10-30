@@ -17,11 +17,11 @@ export default async function OrderDetail({params,searchParams}:{params:Promise<
  const membership=memberships.find((m:{organization_id:string})=>m.organization_id===org);
  if(!membership)notFound();
  const [{data:orders,error:orderError},{data:events,error:eventError}]=await Promise.all([
-   db.rpc('fieldforce_list_orders',{p_org:membership.organization_id}),
+   db.rpc('fieldforce_get_order',{p_org:membership.organization_id,p_order:id}),
    db.rpc('fieldforce_list_events',{p_org:membership.organization_id,p_order:id})
  ]);
  if(orderError||eventError||!Array.isArray(orders)||!Array.isArray(events))notFound();
- const order=(orders as Order[]).find(o=>o.id===id);
+ const order=(orders as Order[])[0];
  if(!order)notFound();
  const canManage=['owner','admin'].includes(membership.member_role);
  const tm=await getTranslations('mvp');
