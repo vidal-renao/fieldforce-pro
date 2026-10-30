@@ -37,3 +37,19 @@ export async function changeStatus(l:string,form:FormData){
  const {data,error}=await supabase.rpc('fieldforce_change_order_status',{p_org:parsed.data.org,p_order:parsed.data.order,p_status:parsed.data.status});
  redirect(dest(l,parsed.data.org,error||data!==true?'error':'status'));
 }
+
+const assignment=z.object({org:uuid,order:uuid,technician:uuid});
+export async function assignTechnician(l:string,form:FormData){
+ const parsed=assignment.safeParse({org:form.get('org'),order:form.get('order'),technician:form.get('technician')});
+ if(!parsed.success)redirect(dest(l,String(form.get('org')??''),'invalid'));
+ const client=await userClient(l);
+ const {error,data}=await client.rpc('fieldforce_assign_technician',{p_org:parsed.data.org,p_order:parsed.data.order,p_technician:parsed.data.technician});
+ redirect(dest(l,parsed.data.org,error||data!==true?'error':'assigned'));
+}
+export async function technicianStatus(l:string,form:FormData){
+ const parsed=z.object({org:uuid,order:uuid,status:z.enum(['in_progress','completed'])}).safeParse({org:form.get('org'),order:form.get('order'),status:form.get('status')});
+ if(!parsed.success)redirect(dest(l,String(form.get('org')??''),'invalid'));
+ const client=await userClient(l);
+ const {error,data}=await client.rpc('fieldforce_technician_change_status',{p_org:parsed.data.org,p_order:parsed.data.order,p_status:parsed.data.status});
+ redirect(dest(l,parsed.data.org,error||data!==true?'error':'status'));
+}
