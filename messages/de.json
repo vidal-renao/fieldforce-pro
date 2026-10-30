@@ -12,5 +12,18 @@
   "featureThreeDescription": "Geplante Nachverfolgung von Arbeitsschritten und Statusänderungen.",
   "previewLabel": "Geplante Funktionen",
   "footerNote": "Produktvorschau · Noch nicht für den Betrieb freigegeben",
-  "languageLabel": "Sprache auswählen"
+  "languageLabel": "Sprache auswählen",
+  "auth": {
+    "loginTitle": "Sicher anmelden",
+    "loginDescription": "Mit autorisiertem Konto anmelden.",
+    "loginError": "Anmeldung fehlgeschlagen.",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "signIn": "Anmelden",
+    "back": "Zurück",
+    "dashboardTitle": "Geschützter Bereich",
+    "signedInAs": "Angemeldet als:",
+    "noWorkspace": "Der Zugang zu Unternehmen wird separat freigeschaltet.",
+    "signOut": "Abmelden"
+  }
 }
