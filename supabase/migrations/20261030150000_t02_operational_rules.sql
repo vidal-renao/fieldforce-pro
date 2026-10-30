@@ -47,7 +47,7 @@ grant execute on function public.fieldforce_reassign_technician(uuid,uuid,uuid) 
 -- all assignment operations through the same atomic one-responsible implementation.
 create or replace function public.fieldforce_assign_technician(p_org uuid,p_order uuid,p_technician uuid)
 returns boolean language sql security invoker set search_path=''
-as $select public.fieldforce_reassign_technician(p_org,p_order,p_technician)$;
+as $fn$select public.fieldforce_reassign_technician(p_org,p_order,p_technician)$fn$;
 
 -- Disallow invalid transitions even when an admin uses the original public RPC.
 create or replace function public.fieldforce_change_order_status(p_org uuid,p_order uuid,p_status text)
