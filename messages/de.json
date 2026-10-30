@@ -24,6 +24,15 @@
     "dashboardTitle": "Geschützter Bereich",
     "signedInAs": "Angemeldet als:",
     "noWorkspace": "Der Zugang zu Unternehmen wird separat freigeschaltet.",
-    "signOut": "Abmelden"
+    "signOut": "Abmelden",
+    "organizationCreated": "Unternehmen erfolgreich erstellt.",
+    "organizationError": "Unternehmen konnte nicht erstellt werden.",
+    "connectionError": "Unternehmensliste konnte nicht geladen werden.",
+    "organizationsTitle": "Meine Unternehmen",
+    "operationsComingSoon": "Operative Funktionen folgen in der nächsten Phase.",
+    "createOrganizationTitle": "Erstes Unternehmen einrichten",
+    "createOrganizationDescription": "Du wirst Eigentümer eines isolierten Arbeitsbereichs.",
+    "organizationName": "Unternehmensname",
+    "createOrganization": "Unternehmen erstellen"
   }
 }
