@@ -86,6 +86,7 @@
     "team": "Company and team",
     "account": "Account",
     "languageNavigation": "Choose language",
-    "restricted": "Restricted"
+    "restricted": "Restricted",
+    "confirmCompletion": "Are you sure you want to mark this job as completed?"
   }
 }
