@@ -87,6 +87,17 @@
     "account": "Cuenta",
     "languageNavigation": "Seleccionar idioma",
     "restricted": "Acceso restringido",
-    "confirmCompletion": "¿Confirmas que deseas marcar este trabajo como completado?"
+    "confirmCompletion": "¿Confirmas que deseas marcar este trabajo como completado?",
+    "orderCreated": "Creación",
+    "orderScheduled": "Programación",
+    "unscheduled": "Sin programar",
+    "eventHistory": "Historial de actividad",
+    "noEvents": "Sin eventos registrados",
+    "reopenTitle": "Reabrir orden completada",
+    "reopenHelp": "Introduce un motivo. La reapertura quedará registrada en la auditoría.",
+    "reopenReason": "Motivo de reapertura",
+    "reopenAction": "Reabrir orden",
+    "reopenSuccess": "Orden reabierta y auditada.",
+    "orderActionError": "No se pudo completar la operación. Comprueba los datos y permisos."
   }
 }

@@ -87,6 +87,17 @@
     "account": "Account",
     "languageNavigation": "Choose language",
     "restricted": "Restricted",
-    "confirmCompletion": "Are you sure you want to mark this job as completed?"
+    "confirmCompletion": "Are you sure you want to mark this job as completed?",
+    "orderCreated": "Created",
+    "orderScheduled": "Scheduled",
+    "unscheduled": "Not scheduled",
+    "eventHistory": "Activity history",
+    "noEvents": "No events recorded",
+    "reopenTitle": "Reopen completed work order",
+    "reopenHelp": "Enter a reason. Reopening is recorded in the audit log.",
+    "reopenReason": "Reason for reopening",
+    "reopenAction": "Reopen order",
+    "reopenSuccess": "Order reopened and audited.",
+    "orderActionError": "The action could not be completed. Check the details and permissions."
   }
 }
