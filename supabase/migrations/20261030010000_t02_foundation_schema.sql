@@ -1,7 +1,5 @@
 -- VE-FFP-PLAN-001 / T02. Schema only; RLS policies are T03.
 -- Default-deny for anon and authenticated until authorized policies are reviewed.
-create extension if not exists pgcrypto with schema extensions;
-
 create table public.organizations (
   id uuid primary key default gen_random_uuid(),
   name text not null check (char_length(trim(name)) between 2 and 160),
