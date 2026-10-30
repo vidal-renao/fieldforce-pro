@@ -18,16 +18,16 @@
 | assigned | in_progress, cancelled | owner/admin; technician asignado solo a in_progress |
 | open | in_progress | technician asignado (compatibilidad con QA-001) |
 | in_progress | completed, cancelled | owner/admin; technician asignado solo a completed |
-| completed | ninguno | terminal |
+| completed | open (acción explícita de reapertura por owner/admin) | reabrible con auditoría |
 | cancelled | ninguno | terminal |
 
-No se permite `open → completed` directamente. Cualquier reapertura requiere un flujo futuro explícito, no incluido en v0.2. Una transición idéntica devuelve un resultado idempotente sin crear eventos duplicados.
+No se permite `open → completed` directamente. La reapertura de completed se permite únicamente mediante RPC explícita de owner/admin, con motivo y evento de auditoría. Cancelled permanece terminal. Una transición idéntica devuelve un resultado idempotente sin crear eventos duplicados.
 
 ## Reglas de asignación propuestas
 - Solo owner/admin pueden asignar/reasignar; técnico debe ser miembro de la misma organización.
 - No asignar ni reasignar órdenes terminales.
 - Segunda asignación idéntica: devolver éxito idempotente sin duplicar registros.
-- Reasignación: operación explícita y atómica. Mantener inicialmente un único responsable por orden (ver pregunta abierta sobre varios técnicos).
+- Reasignación: operación explícita y atómica. Exigir un único técnico responsable por orden; reasignación transaccional y auditada.
 - Registrar evento de asignación con actor; no usar directamente el formulario como única fuente de autorización.
 
 ## Contratos y seguridad
@@ -58,8 +58,8 @@ Todos los tests de DB con transacciones reversibles, preferiblemente una instanc
 ## ADR propuesto
 **ADR-0003 — Estado y asignación transaccional:** adoptar máquina de estados auditable con transiciones SQL explícitas. Descartar controles únicamente frontend por el riesgo de API directa. Reabrir órdenes requerirá proceso futuro independiente. Limitar un responsable reduce complejidad del MVP, pero requiere confirmación del usuario.
 
-## Decisiones a confirmar
-1. ¿Una orden puede tener varios técnicos a la vez o solo uno responsable?
-2. ¿Una orden completada puede reabrirse por owner/admin en v0.2 o debe ser terminal?
+## Decisiones aprobadas por el responsable de producto
+1. Un único técnico responsable por orden.
+2. `owner/admin` pueden reabrir una orden `completed` mediante operación explícita y auditada; `cancelled` permanece terminal.
 
-**Puerta de aprobación:** no aplicar migraciones ni alterar reglas reales sin confirmar estas decisiones.
+**Puerta de despliegue:** tests de contrato primero, integración SQL reversible, revisión de RLS y datos reales antes de aplicar la migración.
