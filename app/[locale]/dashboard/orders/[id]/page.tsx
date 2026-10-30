@@ -36,19 +36,19 @@ export default async function OrderDetail({params,searchParams}:{params:Promise<
     <span className="rounded-full border border-white/20 px-3 py-1">{tm(order.priority as 'low'|'normal'|'high'|'urgent')}</span>
    </div>
   </header>
-  {result?<p role={result==='reopened'?'status':'alert'} className="rounded-xl border border-white/15 p-4 text-sm">{result==='reopened'?'Orden reabierta y auditada.':'Operación no completada. Verifica datos y permisos.'}</p>:null}
+  {result?<p role={result==='reopened'?'status':'alert'} className="rounded-xl border border-white/15 p-4 text-sm">{result==='reopened'?tm('reopenSuccess'):tm('orderActionError')}</p>:null}
   <section className="grid gap-5 md:grid-cols-2">
    <div className="rounded-2xl border border-white/10 bg-[#101b30] p-6">
     <h2 className="text-lg font-bold">{tm('customer')}</h2>
     <p className="mt-3">{order.customer_name}</p>
     <h3 className="mt-5 text-sm font-bold">{tm('priority')}</h3>
     <p className="mt-2">{tm(order.priority as 'low'|'normal'|'high'|'urgent')}</p>
-    <h3 className="mt-5 text-sm font-bold">Creación</h3><p className="mt-2 text-slate-300">{fmt(order.created_at)}</p>
-    <h3 className="mt-5 text-sm font-bold">Programación</h3><p className="mt-2 text-slate-300">{order.scheduled_for?fmt(order.scheduled_for):'Sin programar'}</p>
+    <h3 className="mt-5 text-sm font-bold">{tm('orderCreated')}</h3><p className="mt-2 text-slate-300">{fmt(order.created_at)}</p>
+    <h3 className="mt-5 text-sm font-bold">{tm('orderScheduled')}</h3><p className="mt-2 text-slate-300">{order.scheduled_for?fmt(order.scheduled_for):tm('unscheduled')}</p>
    </div>
    <div className="rounded-2xl border border-white/10 bg-[#101b30] p-6">
-    <h2 className="text-lg font-bold">Historial de actividad</h2>
-    {events.length===0?<p className="mt-4 text-sm text-slate-400">Sin eventos registrados.</p>:<ol className="mt-5 space-y-4">{(events as Event[]).map((event,i)=><li key={i} className="border-l-2 border-cyan-400/40 pl-4">
+    <h2 className="text-lg font-bold">{tm('eventHistory')}</h2>
+    {events.length===0?<p className="mt-4 text-sm text-slate-400">{tm('noEvents')}</p>:<ol className="mt-5 space-y-4">{(events as Event[]).map((event,i)=><li key={i} className="border-l-2 border-cyan-400/40 pl-4">
       <p className="font-semibold">{event.event_type}</p>
       <p className="mt-1 text-xs text-slate-400">{fmt(event.occurred_at)}</p>
       {event.new_status?<p className="mt-1 text-sm text-slate-300">{event.old_status??'—'} → {event.new_status}</p>:null}
@@ -56,12 +56,12 @@ export default async function OrderDetail({params,searchParams}:{params:Promise<
    </div>
   </section>
   {canManage&&order.status==='completed'?<section className="rounded-2xl border border-amber-400/20 bg-[#101b30] p-6">
-   <h2 className="text-lg font-bold">Reabrir orden completada</h2>
-   <p className="mt-2 text-sm text-slate-400">Esta acción requiere un motivo y quedará registrada en la auditoría.</p>
+   <h2 className="text-lg font-bold">{tm('reopenTitle')}</h2>
+   <p className="mt-2 text-sm text-slate-400">{tm('reopenHelp')}</p>
    <form action={reopenOrder.bind(null,locale)} className="mt-5 space-y-4">
     <input type="hidden" name="org" value={membership.organization_id}/><input type="hidden" name="order" value={order.id}/>
-    <label className="block text-sm">Motivo de reapertura<textarea name="reason" required minLength={5} maxLength={500} rows={3} className="mt-2 w-full rounded-xl border border-slate-500 bg-[#080f20] p-3"/></label>
-    <button className="rounded-xl bg-amber-300 px-5 py-3 text-sm font-bold text-slate-950">Reabrir orden</button>
+    <label className="block text-sm">{tm('reopenReason')}<textarea name="reason" required minLength={5} maxLength={500} rows={3} className="mt-2 w-full rounded-xl border border-slate-500 bg-[#080f20] p-3"/></label>
+    <button className="rounded-xl bg-amber-300 px-5 py-3 text-sm font-bold text-slate-950">{tm('reopenAction')}</button>
    </form>
   </section>:null}
   <footer className="border-t border-white/10 pt-5 text-xs text-slate-500">© VIDAL ECOSYSTEM</footer>
