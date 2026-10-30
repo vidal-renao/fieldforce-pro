@@ -48,9 +48,10 @@ export default async function DashboardPage({params,searchParams}:{
   technician?supabase.rpc('fieldforce_my_work_orders',{p_org:activeOrg}):Promise.resolve({data:[]})
  ]):[{data:[]},{data:[]},{data:[]},{data:[]}];
  const customers=(Array.isArray(rawCustomers)?rawCustomers:[]) as Customer[];
- const {data:customerResults,error:customerSearchError}=activeOrg&&canManage?await supabase.rpc('fieldforce_search_customers',{p_org:activeOrg,p_query:customerQuery,p_page:customerPage,p_size:20}):{data:[],error:null};
+ const {data:customerResults,error:customerSearchError}=activeOrg&&canManage&&view==='customers'?await supabase.rpc('fieldforce_search_customers',{p_org:activeOrg,p_query:customerQuery,p_page:customerPage,p_size:20}):{data:[],error:null};
  const visibleCustomers=(Array.isArray(customerResults)?customerResults:[]) as (Customer & {total_count:number})[];
  const customerTotal=visibleCustomers[0]?.total_count??0;
+ if(activeOrg&&canManage&&view==='customers'&&!customerSearchError&&customerPage>1&&visibleCustomers.length===0) redirect(`/${locale}/dashboard?${new URLSearchParams({org:activeOrg,view:'customers',q:customerQuery,page:'1'}).toString()}`);
  const customerLink=(n:number)=>`/${locale}/dashboard?${new URLSearchParams({org:activeOrg??'',view:'customers',q:customerQuery,page:String(n)}).toString()}`;
  const orders=(Array.isArray(rawOrders)?rawOrders:[]) as Order[];
  const team=(Array.isArray(rawTeam)?rawTeam:[]) as Tech[];
