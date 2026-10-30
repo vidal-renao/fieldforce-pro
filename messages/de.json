@@ -98,6 +98,18 @@
     "reopenReason": "Grund für die Wiedereröffnung",
     "reopenAction": "Auftrag wieder öffnen",
     "reopenSuccess": "Auftrag wieder geöffnet und protokolliert.",
-    "orderActionError": "Vorgang fehlgeschlagen. Angaben und Berechtigungen prüfen."
+    "orderActionError": "Vorgang fehlgeschlagen. Angaben und Berechtigungen prüfen.",
+    "editCustomer": "Kunden bearbeiten",
+    "customerNotes": "Interne Notizen",
+    "lastUpdated": "Zuletzt aktualisiert",
+    "customerOrders": "Kundenaufträge",
+    "noCustomerOrders": "Für diesen Kunden gibt es noch keine Aufträge.",
+    "customerSaved": "Kundendaten erfolgreich aktualisiert.",
+    "searchCustomers": "Kunden suchen",
+    "search": "Suchen",
+    "noCustomerResults": "Keine passenden Kunden.",
+    "customerPagination": "Kundenseiten",
+    "previous": "Zurück",
+    "next": "Weiter"
   }
 }
