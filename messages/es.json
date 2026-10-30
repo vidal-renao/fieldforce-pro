@@ -98,6 +98,12 @@
     "reopenReason": "Motivo de reapertura",
     "reopenAction": "Reabrir orden",
     "reopenSuccess": "Orden reabierta y auditada.",
-    "orderActionError": "No se pudo completar la operación. Comprueba los datos y permisos."
+    "orderActionError": "No se pudo completar la operación. Comprueba los datos y permisos.",
+    "editCustomer": "Editar cliente",
+    "customerNotes": "Notas internas",
+    "lastUpdated": "Última actualización",
+    "customerOrders": "Órdenes del cliente",
+    "noCustomerOrders": "Este cliente todavía no tiene órdenes.",
+    "customerSaved": "Cliente actualizado correctamente."
   }
 }
