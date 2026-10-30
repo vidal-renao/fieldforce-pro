@@ -29,3 +29,9 @@
 - Pruebas de navegador autenticado, a11y, móvil y edición real.
 - Búsqueda y paginación de lista (actualmente máximo 200), y paginación de órdenes relacionadas (actualmente máximo 100).
 - Notas internas: garantizar que no se expongan en las vistas de técnico.
+
+## Ampliación: búsqueda y paginación
+- Directorio con filtro por nombre, correo o teléfono y paginación de 20 registros, página máxima y tamaño controlado en SQL.
+- Prueba SQL de consulta filtrada realizada con BEGIN/ROLLBACK: Cliente QA FieldForce, total_count=1. Sin mutaciones persistentes.
+- CI de rama: pasos de tests, lint, typecheck, build y smoke superados en último workflow consultado.
+- Pendiente: validación adversarial de búsqueda, pruebas de carga e integración en navegador. Sin despliegue.
