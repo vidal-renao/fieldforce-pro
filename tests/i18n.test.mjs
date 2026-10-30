@@ -19,7 +19,13 @@ test("unsupported locale falls back safely", () => {
 test("translated messages have matching keys and non-empty text", () => {
   const locales = LOCALES;
   const messages = locales.map((locale) => JSON.parse(readFileSync(new URL(`../messages/${locale}.json`, import.meta.url), "utf8")));
-  const keys = Object.keys(messages[0]).sort();
+  function flatten(value, prefix = "") {
+    return Object.fromEntries(Object.entries(value).flatMap(([key, child]) =>
+      typeof child === "string" ? [[prefix + key, child]] : Object.entries(flatten(child, prefix + key + "."))
+    ));
+  }
+  const flat = messages.map((message) => flatten(message));
+  const keys = Object.keys(flat[0]).sort();
   assert.ok(keys.length > 0);
   for (const message of messages) {
     assert.deepEqual(Object.keys(message).sort(), keys);
