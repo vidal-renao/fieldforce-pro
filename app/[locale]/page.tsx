@@ -31,6 +31,7 @@ export default async function LocalizedHome({params}: {params: Promise<{locale: 
               </Link>
             ))}
           </nav>
+          <Link href="/login" className="rounded-lg border border-cyan-300/30 px-4 py-2 text-sm font-semibold text-cyan-200 transition-colors hover:bg-cyan-300/10 focus-visible:outline-2 focus-visible:outline-cyan-300">{t('auth.signIn')}</Link>
         </header>
         <section className="grid flex-1 items-center gap-12 py-16 lg:grid-cols-[1.2fr_.8fr] lg:gap-16 lg:py-24" aria-labelledby="page-title">
           <div className="max-w-3xl">
