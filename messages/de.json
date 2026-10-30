@@ -84,6 +84,7 @@
     "statusChanged": "Status aktualisiert",
     "navigation": "Hauptnavigation",
     "team": "Unternehmen und Team",
-    "account": "Konto"
+    "account": "Konto",
+    "languageNavigation": "Sprache wählen"
   }
 }
