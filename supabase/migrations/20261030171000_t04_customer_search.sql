@@ -12,9 +12,9 @@ begin
  select c.id,c.name,c.email,c.phone,count(*) over() as total_count
  from fieldforce.customers c
  where c.organization_id=p_org and (coalesce(btrim(p_query),'')='' or
- c.name ilike '%'||replace(replace(replace(btrim(p_query),'\\','\\\\'),'%','\\%'),'_','\\_')||'%' or
- coalesce(c.email,'') ilike '%'||replace(replace(btrim(p_query),'%','\\%'),'_','\\_')||'%' or
- coalesce(c.phone,'') ilike '%'||replace(replace(btrim(p_query),'%','\\%'),'_','\\_')||'%')
+ strpos(lower(c.name),lower(btrim(p_query)))>0 or
+ strpos(lower(coalesce(c.email,'')),lower(btrim(p_query)))>0 or
+ strpos(lower(coalesce(c.phone,'')),lower(btrim(p_query)))>0)
  order by c.name,c.id limit p_size offset (p_page-1)*p_size;
 end $fn$;
 revoke all on function public.fieldforce_search_customers(uuid,text,integer,integer) from public,anon;
