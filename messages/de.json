@@ -85,6 +85,7 @@
     "navigation": "Hauptnavigation",
     "team": "Unternehmen und Team",
     "account": "Konto",
-    "languageNavigation": "Sprache wählen"
+    "languageNavigation": "Sprache wählen",
+    "restricted": "Kein Zugriff"
   }
 }
