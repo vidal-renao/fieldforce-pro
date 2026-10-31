@@ -63,6 +63,10 @@ export default async function DashboardPage({params,searchParams}:{
  const openOrders=orders.filter(o=>!['completed','cancelled'].includes(o.status)).length;
  const doneOrders=orders.filter(o=>o.status==='completed').length;
  const mainOrders=canManage?orders:assigned;
+ const dashboardProgress=mainOrders.filter(o=>o.status==='in_progress').length;
+ const dashboardUrgent=mainOrders.filter(o=>o.priority==='urgent'||o.priority==='high').length;
+ const dashboardPending=mainOrders.filter(o=>o.status==='open'||o.status==='assigned').length;
+ const dashboardCompleted=mainOrders.filter(o=>o.status==='completed').length;
  return (
  <div className="min-h-screen bg-[#080f1e] text-slate-100">
   <div className="mx-auto min-h-screen max-w-[1560px] lg:grid lg:grid-cols-[248px_minmax(0,1fr)]">
@@ -102,8 +106,9 @@ export default async function DashboardPage({params,searchParams}:{
      <section className={panel}><div className="flex flex-wrap items-center justify-between gap-3"><div><h2 className="text-xl font-bold">{tm('workspace')}</h2><p className="mt-1 text-sm text-slate-400">{active.organization_name} · {active.member_role}</p></div><a href={url(technician?'my-jobs':'orders')} className={action}>{technician?tm('myJobs'):tm('orders')}</a></div>
       {companies.length>1?<div className="mt-4 flex flex-wrap gap-2">{companies.map(c=><a key={c.organization_id} href={`/${locale}/dashboard?org=${encodeURIComponent(c.organization_id)}&view=overview`} className={subtle}>{c.organization_name}</a>)}</div>:null}
      </section>
+     <section className={panel}><div className="flex flex-wrap items-start justify-between gap-3"><div><h2 className="text-xl font-bold">{tm('operationalSnapshot')}</h2><p className="mt-2 text-sm text-slate-400">{tm('dashboardScope')}</p></div><a className={subtle} href={url(technician?'my-jobs':'orders')}>{tm('viewWorkOrders')}</a></div><div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">{([{label:tm('pendingJobs'),value:dashboardPending},{label:tm('inProgressJobs'),value:dashboardProgress},{label:tm('priorityJobs'),value:dashboardUrgent},{label:tm('completedJobs'),value:dashboardCompleted}]).map(k=><div key={k.label} className="rounded-xl border border-white/10 bg-[#0b1425] p-4"><p className="text-xs font-semibold uppercase tracking-wider text-slate-400">{k.label}</p><p className="mt-2 text-2xl font-bold tabular-nums text-cyan-200">{k.value}</p></div>)}</div></section>
      <section className={panel}><div className="mb-5 flex items-center justify-between"><h2 className="text-xl font-bold">{technician?tm('myJobs'):tm('orders')}</h2><a className="text-sm font-semibold text-cyan-300 hover:underline" href={url(technician?'my-jobs':'orders')}>{tm('update')} →</a></div>
-      {mainOrders.length===0?<p className="text-sm text-slate-400">{technician?tm('noJobs'):'—'}</p>:<div className="space-y-2">{mainOrders.slice(0,6).map(o=><div key={o.id} className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-white/5 bg-[#0b1425] p-4"><div><p className="font-semibold">{o.title}</p><p className="mt-1 text-xs text-slate-400">{o.customer_name}</p></div><span className={`rounded-full px-3 py-1 text-xs font-semibold ring-1 ${statusClass(o.status)}`}>{tm(o.status as 'open'|'assigned'|'in_progress'|'completed'|'cancelled')}</span></div>)}</div>}
+      {mainOrders.length===0?<p className="text-sm text-slate-400">{technician?tm('noJobs'):'—'}</p>:<div className="space-y-2">{mainOrders.slice(0,6).map(o=><div key={o.id} className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-white/5 bg-[#0b1425] p-4"><div><a href={`/${locale}/dashboard/orders/${o.id}?org=${encodeURIComponent(activeOrg)}`} className="font-semibold hover:text-cyan-300 hover:underline">{o.title}</a><p className="mt-1 text-xs text-slate-400">{o.customer_name}</p></div><span className={`rounded-full px-3 py-1 text-xs font-semibold ring-1 ${statusClass(o.status)}`}>{tm(o.status as 'open'|'assigned'|'in_progress'|'completed'|'cancelled')}</span></div>)}</div>}
      </section>
     </div>:null}
     {activeOrg&&current==='customers'&&canManage?<section className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,1fr)_350px]">
