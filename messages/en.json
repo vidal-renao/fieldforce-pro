@@ -98,6 +98,25 @@
     "reopenReason": "Reason for reopening",
     "reopenAction": "Reopen order",
     "reopenSuccess": "Order reopened and audited.",
-    "orderActionError": "The action could not be completed. Check the details and permissions."
+    "orderActionError": "The action could not be completed. Check the details and permissions.",
+    "editCustomer": "Edit customer",
+    "customerNotes": "Internal notes",
+    "lastUpdated": "Last updated",
+    "customerOrders": "Customer work orders",
+    "noCustomerOrders": "This customer has no work orders yet.",
+    "customerSaved": "Customer updated successfully.",
+    "searchCustomers": "Search customers",
+    "search": "Search",
+    "noCustomerResults": "No matching customers.",
+    "customerPagination": "Customer pages",
+    "previous": "Previous",
+    "next": "Next",
+    "operationalSnapshot": "Operational overview",
+    "dashboardScope": "Indicators for work orders visible to your role. List limited to 200 records.",
+    "viewWorkOrders": "View orders",
+    "pendingJobs": "Pending",
+    "inProgressJobs": "In progress",
+    "priorityJobs": "High/urgent priority",
+    "completedJobs": "Completed"
   }
 }

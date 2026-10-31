@@ -98,6 +98,25 @@
     "reopenReason": "Motivo de reapertura",
     "reopenAction": "Reabrir orden",
     "reopenSuccess": "Orden reabierta y auditada.",
-    "orderActionError": "No se pudo completar la operación. Comprueba los datos y permisos."
+    "orderActionError": "No se pudo completar la operación. Comprueba los datos y permisos.",
+    "editCustomer": "Editar cliente",
+    "customerNotes": "Notas internas",
+    "lastUpdated": "Última actualización",
+    "customerOrders": "Órdenes del cliente",
+    "noCustomerOrders": "Este cliente todavía no tiene órdenes.",
+    "customerSaved": "Cliente actualizado correctamente.",
+    "searchCustomers": "Buscar clientes",
+    "search": "Buscar",
+    "noCustomerResults": "No hay clientes que coincidan.",
+    "customerPagination": "Páginas de clientes",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "operationalSnapshot": "Estado operativo",
+    "dashboardScope": "Indicadores de los trabajos visibles para tu rol. Listado limitado a 200 registros.",
+    "viewWorkOrders": "Ver órdenes",
+    "pendingJobs": "Pendientes",
+    "inProgressJobs": "En curso",
+    "priorityJobs": "Prioridad alta/urgente",
+    "completedJobs": "Completadas"
   }
 }

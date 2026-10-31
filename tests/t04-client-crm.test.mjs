@@ -1,0 +1,5 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
+const read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
+test('T04 tenant scoped customer detail and update RPC',()=>{const sql=read('supabase/migrations/20261030170000_t04_customer_crm.sql');assert.match(sql,/fieldforce_get_customer/);assert.match(sql,/fieldforce_update_customer/);assert.match(sql,/fieldforce_customer_orders/);assert.match(sql,/security invoker/ig);assert.match(sql,/organization_id=p_org/);assert.match(sql,/revoke all on function/);});
+test('T04 protected detail and editable fields',()=>{const ui=read('app/[locale]/dashboard/customers/[id]/page.tsx');const act=read('app/[locale]/dashboard/customers/[id]/actions.ts');assert.match(ui,/auth\.getUser\(\)/);assert.match(ui,/fieldforce_my_organizations/);assert.match(ui,/fieldforce_get_customer/);assert.match(ui,/fieldforce_customer_orders/);assert.match(act,/z\.object/);assert.match(act,/fieldforce_update_customer/);});
+test('T04 client list opens customer details',()=>{const page=read('app/[locale]/dashboard/page.tsx');assert.match(page,/dashboard\/customers\/\$\{c\.id\}/);});

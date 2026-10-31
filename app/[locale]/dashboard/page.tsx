@@ -23,10 +23,12 @@ function statusClass(value:string){return value==='completed'?'bg-emerald-400/10
 
 export default async function DashboardPage({params,searchParams}:{
   params:Promise<{locale:string}>;
-  searchParams:Promise<{error?:string;created?:string;org?:string;notice?:string;view?:string}>;
+  searchParams:Promise<{error?:string;created?:string;org?:string;notice?:string;view?:string;q?:string;page?:string}>;
 }){
  const {locale}=await params;
- const {error,created,org,notice,view}=await searchParams;
+ const {error,created,org,notice,view,q,page}=await searchParams;
+ const customerQuery=(q??'').trim().slice(0,120);
+ const customerPage=Math.max(1,Math.min(100000,Number.isSafeInteger(Number(page))?Number(page):1));
  setRequestLocale(locale);
  const supabase=await createSupabaseServerClient();
  const {data:{user},error:authError}=await supabase.auth.getUser();
@@ -46,6 +48,11 @@ export default async function DashboardPage({params,searchParams}:{
   technician?supabase.rpc('fieldforce_my_work_orders',{p_org:activeOrg}):Promise.resolve({data:[]})
  ]):[{data:[]},{data:[]},{data:[]},{data:[]}];
  const customers=(Array.isArray(rawCustomers)?rawCustomers:[]) as Customer[];
+ const {data:customerResults,error:customerSearchError}=activeOrg&&canManage&&view==='customers'?await supabase.rpc('fieldforce_search_customers',{p_org:activeOrg,p_query:customerQuery,p_page:customerPage,p_size:20}):{data:[],error:null};
+ const visibleCustomers=(Array.isArray(customerResults)?customerResults:[]) as (Customer & {total_count:number})[];
+ const customerTotal=visibleCustomers[0]?.total_count??0;
+ if(activeOrg&&canManage&&view==='customers'&&!customerSearchError&&customerPage>1&&visibleCustomers.length===0) redirect(`/${locale}/dashboard?${new URLSearchParams({org:activeOrg,view:'customers',q:customerQuery,page:'1'}).toString()}`);
+ const customerLink=(n:number)=>`/${locale}/dashboard?${new URLSearchParams({org:activeOrg??'',view:'customers',q:customerQuery,page:String(n)}).toString()}`;
  const orders=(Array.isArray(rawOrders)?rawOrders:[]) as Order[];
  const team=(Array.isArray(rawTeam)?rawTeam:[]) as Tech[];
  const assigned=(Array.isArray(rawAssigned)?rawAssigned:[]) as Order[];
@@ -56,6 +63,10 @@ export default async function DashboardPage({params,searchParams}:{
  const openOrders=orders.filter(o=>!['completed','cancelled'].includes(o.status)).length;
  const doneOrders=orders.filter(o=>o.status==='completed').length;
  const mainOrders=canManage?orders:assigned;
+ const dashboardProgress=mainOrders.filter(o=>o.status==='in_progress').length;
+ const dashboardUrgent=mainOrders.filter(o=>o.priority==='urgent'||o.priority==='high').length;
+ const dashboardPending=mainOrders.filter(o=>o.status==='open'||o.status==='assigned').length;
+ const dashboardCompleted=mainOrders.filter(o=>o.status==='completed').length;
  return (
  <div className="min-h-screen bg-[#080f1e] text-slate-100">
   <div className="mx-auto min-h-screen max-w-[1560px] lg:grid lg:grid-cols-[248px_minmax(0,1fr)]">
@@ -95,12 +106,13 @@ export default async function DashboardPage({params,searchParams}:{
      <section className={panel}><div className="flex flex-wrap items-center justify-between gap-3"><div><h2 className="text-xl font-bold">{tm('workspace')}</h2><p className="mt-1 text-sm text-slate-400">{active.organization_name} · {active.member_role}</p></div><a href={url(technician?'my-jobs':'orders')} className={action}>{technician?tm('myJobs'):tm('orders')}</a></div>
       {companies.length>1?<div className="mt-4 flex flex-wrap gap-2">{companies.map(c=><a key={c.organization_id} href={`/${locale}/dashboard?org=${encodeURIComponent(c.organization_id)}&view=overview`} className={subtle}>{c.organization_name}</a>)}</div>:null}
      </section>
+     <section className={panel}><div className="flex flex-wrap items-start justify-between gap-3"><div><h2 className="text-xl font-bold">{tm('operationalSnapshot')}</h2><p className="mt-2 text-sm text-slate-400">{tm('dashboardScope')}</p></div><a className={subtle} href={url(technician?'my-jobs':'orders')}>{tm('viewWorkOrders')}</a></div><div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">{([{label:tm('pendingJobs'),value:dashboardPending},{label:tm('inProgressJobs'),value:dashboardProgress},{label:tm('priorityJobs'),value:dashboardUrgent},{label:tm('completedJobs'),value:dashboardCompleted}]).map(k=><div key={k.label} className="rounded-xl border border-white/10 bg-[#0b1425] p-4"><p className="text-xs font-semibold uppercase tracking-wider text-slate-400">{k.label}</p><p className="mt-2 text-2xl font-bold tabular-nums text-cyan-200">{k.value}</p></div>)}</div></section>
      <section className={panel}><div className="mb-5 flex items-center justify-between"><h2 className="text-xl font-bold">{technician?tm('myJobs'):tm('orders')}</h2><a className="text-sm font-semibold text-cyan-300 hover:underline" href={url(technician?'my-jobs':'orders')}>{tm('update')} →</a></div>
-      {mainOrders.length===0?<p className="text-sm text-slate-400">{technician?tm('noJobs'):'—'}</p>:<div className="space-y-2">{mainOrders.slice(0,6).map(o=><div key={o.id} className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-white/5 bg-[#0b1425] p-4"><div><p className="font-semibold">{o.title}</p><p className="mt-1 text-xs text-slate-400">{o.customer_name}</p></div><span className={`rounded-full px-3 py-1 text-xs font-semibold ring-1 ${statusClass(o.status)}`}>{tm(o.status as 'open'|'assigned'|'in_progress'|'completed'|'cancelled')}</span></div>)}</div>}
+      {mainOrders.length===0?<p className="text-sm text-slate-400">{technician?tm('noJobs'):'—'}</p>:<div className="space-y-2">{mainOrders.slice(0,6).map(o=><div key={o.id} className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-white/5 bg-[#0b1425] p-4"><div><a href={`/${locale}/dashboard/orders/${o.id}?org=${encodeURIComponent(activeOrg)}`} className="font-semibold hover:text-cyan-300 hover:underline">{o.title}</a><p className="mt-1 text-xs text-slate-400">{o.customer_name}</p></div><span className={`rounded-full px-3 py-1 text-xs font-semibold ring-1 ${statusClass(o.status)}`}>{tm(o.status as 'open'|'assigned'|'in_progress'|'completed'|'cancelled')}</span></div>)}</div>}
      </section>
     </div>:null}
     {activeOrg&&current==='customers'&&canManage?<section className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,1fr)_350px]">
-      <div className={panel}><h2 className="text-xl font-bold">{tm('customers')} <span className="text-slate-400">({customers.length})</span></h2><div className="mt-5 space-y-2">{customers.length===0?<p className="text-sm text-slate-400">—</p>:customers.map(c=><div key={c.id} className="rounded-xl border border-white/5 bg-[#0b1425] p-4"><p className="font-semibold">{c.name}</p><p className="mt-1 text-sm text-slate-400">{c.email??''} {c.phone??''}</p></div>)}</div></div>
+      <div className={panel}><h2 className="text-xl font-bold">{tm('customers')} <span className="text-slate-400">({customerTotal})</span></h2><form className="mt-5 flex flex-wrap gap-2" action={`/${locale}/dashboard`} method="get"><input type="hidden" name="org" value={activeOrg}/><input type="hidden" name="view" value="customers"/><input aria-label={tm('searchCustomers')} name="q" defaultValue={customerQuery} maxLength={120} placeholder={tm('searchCustomers')} className={field+ ' mt-0 flex-1'}/><button className={subtle}>{tm('search')}</button></form>{customerSearchError?<p role="alert" className="mt-3 text-rose-300">{tm('operationError')}</p>:null}<div className="mt-5 space-y-2">{visibleCustomers.length===0?<p className="text-sm text-slate-400">{tm('noCustomerResults')}</p>:visibleCustomers.map(c=><div key={c.id} className="rounded-xl border border-white/5 bg-[#0b1425] p-4"><a className="font-semibold hover:text-cyan-300 hover:underline" href={`/${locale}/dashboard/customers/${c.id}?org=${encodeURIComponent(activeOrg)}`}>{c.name}</a><p className="mt-1 text-sm text-slate-400">{c.email??''} {c.phone??''}</p></div>)}</div><nav aria-label={tm('customerPagination')} className="mt-5 flex items-center justify-between gap-3 text-sm"><span>{customerPage} / {Math.max(1,Math.ceil(customerTotal/20))}</span><div className="flex gap-3">{customerPage>1?<a className={subtle} href={customerLink(customerPage-1)}>{tm('previous')}</a>:null}{customerPage*20<customerTotal?<a className={subtle} href={customerLink(customerPage+1)}>{tm('next')}</a>:null}</div></nav></div>
       <section className={panel}><h2 className="mb-5 text-lg font-bold">{tm('saveCustomer')}</h2><form action={addCustomer.bind(null,locale)} className="space-y-4"><input type="hidden" name="org" value={activeOrg}/><label className="block text-sm">{tm('customerName')}<input name="name" required maxLength={180} className={field}/></label><label className="block text-sm">{tm('emailOptional')}<input type="email" name="email" maxLength={254} className={field}/></label><label className="block text-sm">{tm('phoneOptional')}<input name="phone" maxLength={60} className={field}/></label><button className={action}>{tm('saveCustomer')}</button></form></section>
     </section>:null}
     {activeOrg&&current==='orders'&&canManage?<section className="mt-8 space-y-6">
