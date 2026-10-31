@@ -110,6 +110,13 @@
     "noCustomerResults": "Keine passenden Kunden.",
     "customerPagination": "Kundenseiten",
     "previous": "Zurück",
-    "next": "Weiter"
+    "next": "Weiter",
+    "operationalSnapshot": "Betriebsübersicht",
+    "dashboardScope": "Kennzahlen der für Ihre Rolle sichtbaren Aufträge. Liste auf 200 Einträge begrenzt.",
+    "viewWorkOrders": "Aufträge ansehen",
+    "pendingJobs": "Offen",
+    "inProgressJobs": "In Bearbeitung",
+    "priorityJobs": "Hohe/dringende Priorität",
+    "completedJobs": "Abgeschlossen"
   }
 }
