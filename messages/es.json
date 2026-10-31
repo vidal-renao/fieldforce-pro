@@ -110,6 +110,13 @@
     "noCustomerResults": "No hay clientes que coincidan.",
     "customerPagination": "Páginas de clientes",
     "previous": "Anterior",
-    "next": "Siguiente"
+    "next": "Siguiente",
+    "operationalSnapshot": "Estado operativo",
+    "dashboardScope": "Indicadores de los trabajos visibles para tu rol. Listado limitado a 200 registros.",
+    "viewWorkOrders": "Ver órdenes",
+    "pendingJobs": "Pendientes",
+    "inProgressJobs": "En curso",
+    "priorityJobs": "Prioridad alta/urgente",
+    "completedJobs": "Completadas"
   }
 }
