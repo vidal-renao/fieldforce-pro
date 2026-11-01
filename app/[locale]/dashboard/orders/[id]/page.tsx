@@ -1,5 +1,6 @@
 export const instant=false;
 import {notFound,redirect} from 'next/navigation';
+import {connection} from 'next/server';
 import {getTranslations,setRequestLocale} from 'next-intl/server';
 import {createSupabaseServerClient} from '@/src/lib/supabase/server';
 import {reopenOrder} from './actions';
@@ -9,6 +10,7 @@ export default async function OrderDetail({params,searchParams}:{params:Promise<
  const {locale,id}=await params;const {org,result}=await searchParams;
  setRequestLocale(locale);
  if(!/^[0-9a-f]{8}-[0-9a-f-]{27,}$/i.test(id))notFound();
+ await connection();
  const db=await createSupabaseServerClient();
  const {data:{user},error:authError}=await db.auth.getUser();
  if(authError||!user)redirect(`/${locale}/login`);
