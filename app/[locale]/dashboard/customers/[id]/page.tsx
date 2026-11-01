@@ -1,5 +1,6 @@
 export const instant=false;
 import {notFound,redirect} from 'next/navigation';
+import {connection} from 'next/server';
 import {getTranslations,setRequestLocale} from 'next-intl/server';
 import {createSupabaseServerClient} from '@/src/lib/supabase/server';
 import {updateCustomer} from './actions';
@@ -9,6 +10,7 @@ const input='mt-2 w-full rounded-xl border border-slate-600 bg-[#080f20] px-4 py
 export default async function CustomerDetail({params,searchParams}:{params:Promise<{locale:string;id:string}>;searchParams:Promise<{org?:string;notice?:string}>}){
  const {locale,id}=await params;const {org,notice}=await searchParams;setRequestLocale(locale);
  if(!/^[0-9a-f]{8}-[0-9a-f-]{27,}$/i.test(id))notFound();
+ await connection();
  const db=await createSupabaseServerClient();
  const {data:{user},error:authError}=await db.auth.getUser();
  if(authError||!user)redirect(`/${locale}/login`);
