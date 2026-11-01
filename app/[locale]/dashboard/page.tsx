@@ -1,6 +1,7 @@
 export const instant = false;
 
 import {redirect} from 'next/navigation';
+import {connection} from 'next/server';
 import {getTranslations,setRequestLocale} from 'next-intl/server';
 import {createSupabaseServerClient} from '@/src/lib/supabase/server';
 import {routing} from '@/src/i18n/routing';
@@ -30,6 +31,7 @@ export default async function DashboardPage({params,searchParams}:{
  const customerQuery=(q??'').trim().slice(0,120);
  const customerPage=Math.max(1,Math.min(100000,Number.isSafeInteger(Number(page))?Number(page):1));
  setRequestLocale(locale);
+ await connection();
  const supabase=await createSupabaseServerClient();
  const {data:{user},error:authError}=await supabase.auth.getUser();
  if(authError||!user)redirect(`/${locale}/login`);
