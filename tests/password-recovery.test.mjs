@@ -37,12 +37,14 @@ test('forgot-password validates email and keeps the public response neutral', ()
 
 test('SSR confirmation callback verifies recovery token and blocks open redirects', () => {
   const source = read('app/auth/confirm/route.ts');
+  const proxy = read('proxy.ts');
   assert.match(source, /type !== 'recovery'/);
   assert.match(source, /verifyOtp\(\{token_hash: tokenHash, type: 'recovery'\}\)/);
   assert.match(source, /store\.set\(RECOVERY_COOKIE, data\.user\.id/);
   assert.match(source, /getRecoveryDestination/);
   assert.doesNotMatch(source, /searchParams\.get\('next'\).*\|\|/);
   assert.doesNotMatch(source, /headers\(\)|get\(['"]host['"]\)/i);
+  assert.match(proxy, /\(\?!api\|auth\|trpc/);
 });
 
 test('password update requires a verified user, strong matching values and local sign-out', () => {
