@@ -1,6 +1,6 @@
 # VE-FF-AUTH-001 — Recuperación segura de contraseña
 
-Fecha: 2026-11-14. Estado: especificación, plan y decisiones aprobados por Vidal en la conversación. Implementación en curso; no desplegada a producción.
+Fecha: 2026-11-14. Estado: especificación, plan y decisiones aprobados por Vidal. Código y preview verificados; configuración Supabase y recorrido real pendientes. No desplegada a producción.
 
 ## Objetivo y alcance
 
@@ -25,7 +25,7 @@ Excluido:
 - cambiar las variables públicas de Supabase que ya están configuradas en Vercel;
 - fusionar, promover a producción o modificar otros esquemas del proyecto Supabase compartido sin autorización posterior.
 
-## Arquitectura propuesta
+## Arquitectura aprobada
 
 1. `/{locale}/forgot-password` llama desde una Server Action a `resetPasswordForEmail`.
 2. El `redirectTo` se construye con un origen permitido: URL de preview de Vercel, URL productiva configurada o `localhost` en desarrollo. No se acepta un host enviado por el formulario.
@@ -57,7 +57,8 @@ La UI no revela si el correo existe. No se guarda la contraseña, el token o el 
 |---|---|
 | Enumeración de cuentas | Mensaje idéntico para correo existente, inexistente y respuesta remota no sensible. |
 | Open redirect en callback | Lista cerrada de locales y destino relativo; no aceptar URL absoluta ni cabecera `Host` como autoridad. |
-| Preview con URL variable | Wildcard oficial `https://*-vidal-renaos-projects.vercel.app/**`; producción usa URL exacta. |
+| Preview con URL variable | Para no ampliar el acceso de otras aplicaciones del Supabase compartido, usar el patrón restringido `https://fieldforce-*-vidal-renaos-projects.vercel.app/**`; producción usa URL exacta. |
+| `Site URL` pertenece a otra aplicación | No sustituirla. FieldForce envía siempre un `redirectTo` explícito y solo añade sus destinos a la allowlist. |
 | Enlace consumido por escáner de correo | Usar plantilla con `TokenHash` y callback SSR; registrar como limitación y comprobar con el proveedor real. |
 | Localización del correo | Una única plantilla trilingüe mientras no exista preferencia de idioma fiable en Auth. |
 | Cuenta inexistente | No se crea usuario ni se confirma su ausencia. |
@@ -70,15 +71,15 @@ La UI no revela si el correo existe. No se guarda la contraseña, el token o el 
 | Tarea | Trabajo | Estado |
 |---|---|---|
 | T01 | Aprobar esta especificación, el plan y las decisiones de contraseña/sesión. | Aprobada |
-| T02 | Escribir pruebas de solicitud neutral, validación, callback, redirección cerrada, actualización e idiomas. | Pendiente |
-| T03 | Implementar solicitud de recuperación y enlace desde login. | Pendiente |
-| T04 | Implementar callback SSR seguro y pantalla localizada de nueva contraseña. | Pendiente |
-| T05 | Configurar URL productiva, wildcard preview, localhost y plantilla recovery en Supabase. | Pendiente |
-| T06 | Ejecutar tests, lint, typecheck y build; revisar el diff. | Pendiente |
-| T07 | Desplegar preview desde la rama existente y verificar rutas sin token. | Pendiente |
+| T02 | Escribir pruebas de solicitud neutral, validación, callback, redirección cerrada, actualización e idiomas. | PASS local/CI |
+| T03 | Implementar solicitud de recuperación y enlace desde login. | Implementada en rama |
+| T04 | Implementar callback SSR seguro y pantalla localizada de nueva contraseña. | Implementada en rama |
+| T05 | Configurar URL productiva, wildcard preview, localhost y plantilla recovery en Supabase. | PENDIENTE de confirmación; `localhost:3000` ya existía y `Site URL` compartida no se modificó |
+| T06 | Ejecutar tests, lint, typecheck y build; revisar el diff. | PASS: 67 tests, lint, typecheck y build |
+| T07 | Desplegar preview desde la rama existente y verificar rutas sin token. | PASS en `b8103a0`; se corrigió 404 inicial del callback |
 | T08 | Solicitar un correo real para una cuenta de prueba y completar el cambio de contraseña. | Pendiente |
 | T09 | Ejecutar login y UAT básica tras el cambio; verificar que no se filtren datos ni tokens. | Pendiente |
-| T10 | Documentar evidencia, riesgos y presentar go/no-go; producción permanece separada. | Pendiente |
+| T10 | Documentar evidencia, riesgos y presentar go/no-go; producción permanece separada. | En curso; matriz creada |
 
 ## Decisiones aprobadas
 

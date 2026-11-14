@@ -14,6 +14,9 @@
 - Publicada rama `codex/hardening-phase-1`, commit `31b9c393fb5ff0809addc7dc3ef8ca83e1dc8501`, y [PR #20 draft](https://github.com/vidal-renao/fieldforce-pro/pull/20); checks quality (1 min 11 s), Vercel y Preview Comments satisfactorios.
 - [Preview READY](https://fieldforce-1r2o7k4ia-vidal-renaos-projects.vercel.app), deployment `dpl_HitdF5RQV2TwGZzCgRWR69ZMj24D`. Smoke: DE/EN/ES 200 y dashboard sin sesión redirige 307 a login.
 - Actualizada [matriz de aceptación parcial](acceptance/VE-FF-PREMIUM-001-phase-1.md): P1-INF-02, T08 automatizado/consolidado y T09 PASS. UAT autenticada móvil/escritorio, teclado e idiomas y aceptación final pendientes; producción no autorizada.
+- Implementada recuperación segura de contraseña en DE/EN/ES con solicitud neutral, validación Zod, callback SSR `recovery`, destinos cerrados, cookie HTTP-only vinculada al usuario, cambio de contraseña y cierre de sesión local.
+- Añadidos 5 contratos de recuperación. Validación actual: 67/67 tests, lint, typecheck, build y CI PASS. La primera preview descubrió un 404 del callback causado por i18n; corregido con prueba de regresión en `b8103a0`.
+- [Preview de recuperación READY](https://fieldforce-r9phiugmc-vidal-renaos-projects.vercel.app), deployment `dpl_8uxPJVfR42GX5CXtAh3kLkajgWLF`. Configuración final de URLs/plantilla Supabase y recorrido real siguen pendientes; producción no autorizada.
 
 ## Histórico — T01 foundation
 - Add next-intl 4.14.9 and reproducible lockfile.

@@ -15,6 +15,7 @@ Actualizado: 2026-11-14. Reglas compartidas: [AGENTS.md](../AGENTS.md).
 - [Preview READY](https://fieldforce-1r2o7k4ia-vidal-renaos-projects.vercel.app), deployment `dpl_HitdF5RQV2TwGZzCgRWR69ZMj24D`; rutas DE/EN/ES 200, dashboard sin sesión redirige 307 a login. UI autenticada a 390/1440 px y teclado pendiente. Promoción productiva no autorizada.
 - Contrato operativo previo: [VE-FF-MVP-002 T02](specs/VE-FF-MVP-002-T02-operational-contract.md). Su evidencia histórica no sustituye validación actual.
 - Cuatro commits de código/tests de PR #19 incorporados por cherry-pick local; la PR no se fusionó y main remoto no se declara actualizado.
+- Recuperación de contraseña aprobada e implementada en `ce4f9ca` + corrección de callback `b8103a0`. [Spec](specs/VE-FF-AUTH-001-password-recovery.md) y [aceptación parcial](acceptance/VE-FF-AUTH-001-password-recovery.md). Preview y CI PASS; allowlist/plantilla Supabase y cambio real pendientes. No modificar la `Site URL` compartida de otra aplicación.
 
 Siguiente puerta: entrega con evidencia de requisitos, cambios locales/remotos, preview, limitaciones y aceptación de la fase. Mantener producción separada y sin promoción implícita.
 
