@@ -11,7 +11,9 @@
 - Implementado shell claro basado en la demo y componentes de presentación; incorporados localmente cuatro commits de código/tests de PR #19 sin fusionar la PR.
 - Validación local: 62/62 tests, lint/typecheck sin errores y build Next.js 16.4.3 satisfactorio. Audit: siete moderadas transitivas de desarrollo vía minimatch/@typescript-eslint, cero altas/críticas; sin fix automático.
 - Matriz SQL ampliada local/remota PASS: permisos anon, RPC públicas authenticated, denegación de no miembro/técnico/owner de otra empresa y emisión autorizada por owner/admin, según alcance documentado.
-- Añadida [matriz de aceptación parcial](acceptance/VE-FF-PREMIUM-001-phase-1.md). UAT visual, push/PR y preview pendientes; producción no autorizada.
+- Publicada rama `codex/hardening-phase-1`, commit `31b9c393fb5ff0809addc7dc3ef8ca83e1dc8501`, y [PR #20 draft](https://github.com/vidal-renao/fieldforce-pro/pull/20); checks quality (1 min 11 s), Vercel y Preview Comments satisfactorios.
+- [Preview READY](https://fieldforce-1r2o7k4ia-vidal-renaos-projects.vercel.app), deployment `dpl_HitdF5RQV2TwGZzCgRWR69ZMj24D`. Smoke: DE/EN/ES 200 y dashboard sin sesión redirige 307 a login.
+- Actualizada [matriz de aceptación parcial](acceptance/VE-FF-PREMIUM-001-phase-1.md): P1-INF-02, T08 automatizado/consolidado y T09 PASS. UAT autenticada móvil/escritorio, teclado e idiomas y aceptación final pendientes; producción no autorizada.
 
 ## Histórico — T01 foundation
 - Add next-intl 4.14.9 and reproducible lockfile.

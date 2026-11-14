@@ -1,6 +1,6 @@
 # VE-FF-PREMIUM-001 — Aceptación de fase 1
 
-Fecha: 2026-11-14. Estado: aceptación parcial. Corrección SQL aplicada y matriz SQL ampliada satisfactoria; frontend implementado y comprobaciones locales satisfactorias. Validación visual autenticada, push/PR y preview pendientes. Producción no autorizada.
+Fecha: 2026-11-14. Estado: aceptación parcial. Corrección SQL aplicada y matriz SQL ampliada satisfactoria; frontend publicado en rama y preview READY con comprobaciones locales/CI satisfactorias. Validación visual autenticada y aceptación final pendientes. Producción no autorizada.
 
 Referencias: [especificación y tareas](../specs/VE-FF-PREMIUM-001-phase-1.md), [ADR-0004](../adr/ADR-0004-selective-premium-evolution.md). Los resultados de ejecución de este registro fueron confirmados por el coordinador; la documentación no representa una segunda ejecución independiente.
 
@@ -21,6 +21,10 @@ Referencias: [especificación y tareas](../specs/VE-FF-PREMIUM-001-phase-1.md), 
 | `npm run typecheck` | PASS | Cero errores. |
 | `npm run build` | PASS | Next.js 16.4.3; no demuestra funcionamiento productivo. |
 | `npm audit` | Pendiente de remediación moderada | Siete moderadas transitivas de desarrollo vía minimatch/@typescript-eslint; cero altas y críticas. Sin fix automático ni actualización de versiones. |
+| GitHub | PASS | Rama `codex/hardening-phase-1` publicada; commit `31b9c393fb5ff0809addc7dc3ef8ca83e1dc8501`; [PR #20 draft](https://github.com/vidal-renao/fieldforce-pro/pull/20). No fusionada. |
+| Checks de la PR #20 | PASS | `quality` satisfactorio en 1 min 11 s; `Vercel` y `Preview Comments` satisfactorios. Resultado del commit indicado, no de cambios posteriores. |
+| Vercel preview | READY | [Preview de fase 1](https://fieldforce-1r2o7k4ia-vidal-renaos-projects.vercel.app), deployment `dpl_HitdF5RQV2TwGZzCgRWR69ZMj24D`, correspondiente al commit indicado. No es promoción productiva. |
+| Smoke de preview | PASS | `/es`, `/de` y `/en` responden HTTP 200; `/es/dashboard` sin sesión ejecuta `NEXT_REDIRECT` 307 a `/es/login`. No prueba una sesión autenticada ni el diseño en navegador. |
 
 ## Matriz por requisito
 
@@ -35,9 +39,9 @@ PENDIENTE significa que aún falta parte de la aceptación, aunque exista implem
 | P1-UI-02 | PENDIENTE | Tests locales de idioma y estructura PASS; navegación autenticada DE/EN/ES con empresa y roles pendiente. |
 | P1-UI-03 | PENDIENTE | Shell limitado a recorridos existentes; falta la verificación navegada de enlaces y ausencia de acciones ficticias. |
 | P1-UI-04 | PENDIENTE | Tests semánticos y contraste limitado PASS; navegador a 390/1440 px, teclado, foco y desbordamiento pendientes. |
-| P1-VAL-01 | PASS para este corte | Estados locales/remotos y límites separados en este documento; actualizar al obtener evidencia de GitHub/preview. |
+| P1-VAL-01 | PASS para este corte | Estados locales, SQL remoto, rama/PR y preview separados por commit y evidencia; conservar la trazabilidad para cambios posteriores. |
 | P1-INF-01 | PASS en selección y remediación SQL | Recursos existentes reutilizados; migración limitada a tres funciones FieldForce. No se creó proyecto/esquema/repositorio/proyecto Vercel duplicado. |
-| P1-INF-02 | PENDIENTE | No se dispone todavía de evidencia de push/PR ni URL/commit/estado de nueva preview. |
+| P1-INF-02 | PASS | Rama y commit publicados, PR #20 draft, preview READY identificada y smoke HTTP documentado. Producción permanece separada y no autorizada. |
 
 ## Matriz por tarea
 
@@ -50,19 +54,19 @@ PENDIENTE significa que aún falta parte de la aceptación, aunque exista implem
 | T05 | PASS | Componentes de presentación y pruebas locales definidos. |
 | T06 | PASS de implementación | Shell, dashboard, fichas y controles afectados adaptados; no equivale a UAT. |
 | T07 | PENDIENTE | Navegador autenticado, móvil, teclado y tres idiomas. |
-| T08 | PENDIENTE de revisión final | 62 tests, lint, typecheck y build PASS; revisión consolidada y validación UI no cerradas. |
-| T09 | PENDIENTE | Push, PR y nueva preview sin confirmar. |
+| T08 | PASS automatizado/consolidado | 62 tests, lint, typecheck, build y checks de PR PASS. La validación UI autenticada permanece en T07. |
+| T09 | PASS | Rama publicada, PR #20 draft y preview READY del commit `31b9c393fb5ff0809addc7dc3ef8ca83e1dc8501`; smoke sin sesión satisfactorio. |
 | T10 | PENDIENTE | Evidencia documentada; entrega y aceptación finales dependen de los pendientes anteriores. |
 
 ## Publicación y riesgos residuales
 
 - Recursos: Supabase `upuhppsbolpdpaighzfq`/`fieldforce`; GitHub `vidal-renao/fieldforce-pro`; Vercel `fieldforce-pro`, equipo `vidal-renaos-projects`.
-- La corrección de base de datos sí está aplicada en remoto. El nuevo frontend no se declara publicado ni desplegado.
+- La corrección de base de datos está aplicada en remoto. El frontend está publicado en la rama y desplegado como preview; no se ha promovido a producción.
 - PR #19 conserva su estado remoto; cherry-pick local no equivale a merge ni actualización de main.
 - La correspondencia de migración local `20261113233811` y remota `20261114001433` debe conservarse al automatizar futuros cambios.
 - La prueba SQL ampliada comprueba permisos y RPC públicas con `SET LOCAL ROLE authenticated` y simula el identificador de usuario en la sesión. No sustituye una prueba HTTP Auth/PostgREST con sesiones reales ni verifica exhaustivamente el flujo positivo de todas las operaciones de órdenes.
 - Siete vulnerabilidades moderadas en dependencias transitivas de desarrollo quedan pendientes de evaluación y corrección compatible; no se modificaron versiones automáticamente.
-- Faltan UAT visual y comprobaciones de preview. La aceptación SQL se limita a la corrección y matriz documentadas; no hay aceptación productiva ni certificación nDSG/WCAG.
+- Falta UAT de la preview con sesión autenticada: 390/1440 px, teclado, foco y navegación DE/EN/ES. La aceptación SQL se limita a la corrección y matriz documentadas; no hay aceptación productiva ni certificación nDSG/WCAG.
 - Promoción a producción no autorizada; no deducirla del permiso para preparar recursos y preview.
 
 © VIDAL ECOSYSTEM

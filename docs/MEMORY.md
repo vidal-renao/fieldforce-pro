@@ -11,7 +11,8 @@ Actualizado: 2026-11-14. Reglas compartidas: [AGENTS.md](../AGENTS.md).
 - Recursos seleccionados: Supabase `upuhppsbolpdpaighzfq`, esquema propio existente `fieldforce`; GitHub `vidal-renao/fieldforce-pro`; Vercel `fieldforce-pro`, equipo `vidal-renaos-projects`. Reutilizarlos y evitar duplicados. La comparación de carga está en la spec.
 - Supabase local aplicó 18 migraciones. Corrección local `20261113233811` aplicada en remoto como `20261114001433 fieldforce_phase1_authorization_null_guards`; pruebas SQL con ROLLBACK PASS, sin fixtures remotos residuales, y tres funciones fail-closed verificadas.
 - App local: 62/62 tests, lint/typecheck sin errores y build Next.js 16.4.3 OK. Audit: siete moderadas transitivas de desarrollo, cero altas/críticas, sin fix automático.
-- Push/PR y nueva preview pendientes de confirmación. Promoción productiva no autorizada. No alterar aplicaciones vecinas ni Auth global.
+- Rama `codex/hardening-phase-1` publicada, commit `31b9c393fb5ff0809addc7dc3ef8ca83e1dc8501`; [PR #20 draft](https://github.com/vidal-renao/fieldforce-pro/pull/20), checks quality/Vercel/Preview Comments PASS.
+- [Preview READY](https://fieldforce-1r2o7k4ia-vidal-renaos-projects.vercel.app), deployment `dpl_HitdF5RQV2TwGZzCgRWR69ZMj24D`; rutas DE/EN/ES 200, dashboard sin sesión redirige 307 a login. UI autenticada a 390/1440 px y teclado pendiente. Promoción productiva no autorizada.
 - Contrato operativo previo: [VE-FF-MVP-002 T02](specs/VE-FF-MVP-002-T02-operational-contract.md). Su evidencia histórica no sustituye validación actual.
 - Cuatro commits de código/tests de PR #19 incorporados por cherry-pick local; la PR no se fusionó y main remoto no se declara actualizado.
 

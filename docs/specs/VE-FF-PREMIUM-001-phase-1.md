@@ -1,6 +1,6 @@
 # VE-FF-PREMIUM-001 — Arquitectura B y fase 1
 
-Fecha: 2026-11-14. Estado: arquitectura y fase 1 aprobadas por Vidal en la conversación de coordinación. Corrección SQL aplicada y verificada localmente y en Supabase; shell implementado y comprobaciones locales satisfactorias. Aceptación completa, GitHub y preview pendientes según la [matriz de aceptación](../acceptance/VE-FF-PREMIUM-001-phase-1.md).
+Fecha: 2026-11-14. Estado: arquitectura y fase 1 aprobadas por Vidal en la conversación de coordinación. Corrección SQL aplicada y verificada; shell publicado en rama y preview READY con comprobaciones locales/CI satisfactorias. UI autenticada y aceptación completa pendientes según la [matriz de aceptación](../acceptance/VE-FF-PREMIUM-001-phase-1.md).
 
 Ampliación de alcance aprobada el 2026-11-14: preparar el proyecto en Supabase, GitHub y Vercel, usando esquema propio en el proyecto Supabase con menor carga y evitando recursos duplicados. Esta autorización sustituye la exclusión inicial de preparación externa; no acredita acciones ejecutadas ni promoción a producción.
 
@@ -41,7 +41,7 @@ Decisión: reutilizar `upuhppsbolpdpaighzfq`, con menor actividad en los indicad
 
 Reutilizar también `vidal-renao/fieldforce-pro` en GitHub y el proyecto Vercel `fieldforce-pro` del equipo `vidal-renaos-projects`. Comprobar sus vínculos y configuración antes de crear o cambiar recursos. Preparar la rama/PR y un entorno preview dentro de estos recursos; distinguir cada uno de la rama y del despliegue de producción.
 
-Estado de ejecución de esta ampliación: Supabase local arrancó y aplicó las 18 migraciones, incluida `20261113233811_phase1_authorization_null_guards.sql`. En `upuhppsbolpdpaighzfq` se aplicó la corrección como `20261114001433 fieldforce_phase1_authorization_null_guards`. Las pruebas SQL locales y remotas terminaron con `ROLLBACK`; la comprobación remota posterior encontró cero organizaciones, invitaciones y usuarios de los fixtures y confirmó denegación explícita de pertenencia ausente en las tres funciones. Push, creación de PR y despliegue preview siguen pendientes de evidencia. La promoción productiva no está autorizada.
+Estado de ejecución de esta ampliación: Supabase local arrancó y aplicó las 18 migraciones, incluida `20261113233811_phase1_authorization_null_guards.sql`. En `upuhppsbolpdpaighzfq` se aplicó la corrección como `20261114001433 fieldforce_phase1_authorization_null_guards`. Las pruebas SQL locales y remotas terminaron con `ROLLBACK`; la comprobación remota posterior encontró cero organizaciones, invitaciones y usuarios de los fixtures y confirmó denegación explícita de pertenencia ausente en las tres funciones. Rama `codex/hardening-phase-1` publicada en commit `31b9c393fb5ff0809addc7dc3ef8ca83e1dc8501`, [PR #20 draft](https://github.com/vidal-renao/fieldforce-pro/pull/20) y [preview READY](https://fieldforce-1r2o7k4ia-vidal-renaos-projects.vercel.app), deployment `dpl_HitdF5RQV2TwGZzCgRWR69ZMj24D`. Checks `quality`, `Vercel` y `Preview Comments` PASS. `/es`, `/de`, `/en` responden 200; dashboard sin sesión ejecuta redirección 307 a login. La promoción productiva no está autorizada.
 
 ## Alcance y exclusiones
 
@@ -100,9 +100,9 @@ Máximo diez tareas; el orden mantiene tests antes de implementación. PASS indi
 | T05 | Definir componentes del shell y verificaciones de navegación, roles e idiomas. | T01 | PASS para componentes y tests locales |
 | T06 | Implementar el shell claro sobre los recorridos existentes, sin módulos ficticios. | T05 | PASS de implementación; aceptación visual pendiente |
 | T07 | Verificar móvil, teclado, foco, idiomas y estados de interfaz afectados. | T06 | PENDIENTE de navegador autenticado |
-| T08 | Ejecutar tests, lint, typecheck y build apropiados; revisar el diff consolidado. | T04, T07 | PENDIENTE de revisión final; comprobaciones locales PASS |
-| T09 | Preparar rama/PR y preview en GitHub/Vercel existentes; comprobar configuración y registrar commit, URL y resultados sin promoción productiva. | T08 | PENDIENTE de push/PR y preview |
-| T10 | Consolidar documentación y entrega para aceptación, diferenciando cambios locales, remotos y preview; mantener la puerta de producción. | T09 | PENDIENTE de entrega/aceptación final; matriz documentada |
+| T08 | Ejecutar tests, lint, typecheck y build apropiados; revisar el diff consolidado. | T04, T06 | PASS automatizado/consolidado; T07 sigue independiente y pendiente |
+| T09 | Preparar rama/PR y preview en GitHub/Vercel existentes; comprobar configuración y registrar commit, URL y resultados sin promoción productiva. | T08 | PASS: rama publicada, PR #20 draft y preview READY |
+| T10 | Consolidar documentación y entrega para aceptación, diferenciando cambios locales, remotos y preview; mantener la puerta de producción. | T07, T09 | PENDIENTE de entrega/aceptación final; matriz documentada |
 
 ## Dependencias, riesgos y decisiones pendientes
 
